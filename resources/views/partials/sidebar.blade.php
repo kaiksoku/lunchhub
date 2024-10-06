@@ -13,17 +13,17 @@
         }
         .sidebar {
             height: 100vh; /* Altura completa */
+            width: 200px; /* Ancho ajustado de la sidebar */
             background-color: #343a40; /* Color de fondo de la sidebar */
             padding: 20px; /* Espaciado interno */
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra para la sidebar */
-            transition: width 0.3s; /* Transición suave */
         }
         .sidebar .navbar-brand {
             color: #ffffff; /* Color del texto del título */
-            font-size: 1.5rem; /* Tamaño del texto */
-            padding-bottom: 20px; /* Espaciado inferior */
+            font-size: 1.25rem; /* Tamaño del texto reducido */
+            padding: 10px 0; /* Espaciado superior e inferior ajustado */
             border-bottom: 2px solid #495057; /* Línea inferior */
-            margin-bottom: 20px; /* Margen inferior para separación */
+            margin: 0 10px; /* Margen a los lados reducido */
         }
         .sidebar a {
             color: white; /* Color del texto de los enlaces */
@@ -33,6 +33,7 @@
             transition: background-color 0.3s; /* Transición suave */
             display: flex; /* Alinear iconos y texto */
             align-items: center; /* Centrar verticalmente */
+            overflow: hidden;
         }
         .sidebar a:hover {
             background-color: #495057; /* Color de fondo en hover */
@@ -42,80 +43,55 @@
             flex-grow: 1; /* El contenido ocupará el espacio restante */
             padding: 20px; /* Espaciado interno */
         }
-        .sidebar.minimized {
-            width: 60px; /* Ajusta el ancho cuando esté minimizada */
+        .sidebar .nav-link {
+            display: flex;
+            justify-content: flex-start; /* Alinear el icono y el texto al inicio */
+            align-items: center; /* Alinear verticalmente */
         }
-        .sidebar.minimized .navbar-brand {
-            display: none; /* Oculta el título cuando está minimizada */
+        .sidebar .nav-link i {
+            margin-right: 10px; /* Espacio entre el icono y el texto */
         }
-        .sidebar.minimized .nav-link {
-            justify-content: center; /* Centra los iconos */
+        .icon-right {
+            margin-left: auto; /* Empuja el ícono hacia la derecha */
         }
-        .sidebar.minimized .nav-link i {
-            margin-right: 0; /* Elimina el margen derecho de los iconos */
-        }.sidebar .nav-link {
-    display: flex;
-    justify-content: space-between; /* Para separar el texto del icono */
-    align-items: center; /* Para alinear verticalmente */
-}
-
-.icon-right {
-    margin-left: auto; /* Empuja el ícono hacia la derecha */
-}
-
+        .sidebar .span
+            margin-left: 5px; /* Empuja el ícono hacia la derecha */
+        }
     </style>
-
-<!--
-<span class="icon-right"><i class="fa-regular fa-rectangle-list"></i></span>
---> 
 </head>
 <body>
     <div class="sidebar" id="mySidebar">
-    <a href="{{ route('home') }}" class="navbar-brand">El Manantial</a>
-
+        <a href="{{ route('home') }}" class="navbar-brand">
+            <span class="link-text">El Manantial </span>
+            <img src="{{ asset('imagenes/LogoTienda.png') }}" class="img-fluid" alt="Bienvenido" style="max-width: 20%; height: auto;"> <!-- Ajusta el tamaño de la imagen -->
+        </a>
+        <br>
         <nav class="nav flex-column">
-            
-            <a class="nav-link" href="#">Ventas <span class="icon-right"><i class="fa-solid fa-cart-shopping"></i></span></a>
-            <a class="nav-link" href="#">Compras<span class="icon-right"><i class="fa-solid fa-truck"></i></span></a>
-            <a class="nav-link" href="#">Productos<span class="icon-right"><i class="fa-solid fa-box-open"></i></span></a>
-            <a class="nav-link active" href="#">Reportes<span class="icon-right"><i class="fa-regular fa-rectangle-list"></i></span></a>
-            <a class="nav-link" href="#">Usuarios <span class="icon-right"><i class="fa-solid fa-circle-user"></i></span></a>
+            <a class="nav-link" href="{{ route('ventas') }}">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="link-text">Ventas</span>
+            </a>
+            <a class="nav-link" href="#">
+                <i class="fa-solid fa-truck"></i>
+                <span class="link-text">Compras</span>
+            </a>
+            <a class="nav-link" href="#">
+                <i class="fa-solid fa-box-open"></i>
+                <span class="link-text">Productos</span>
+            </a>
+            <a class="nav-link" href="#">
+                <i class="fa-regular fa-rectangle-list"></i>
+                <span class="link-text">Reportes</span>
+            </a>
+            <a class="nav-link" href="#">
+                <i class="fa-solid fa-circle-user"></i>
+                <span class="link-text">Usuarios</span>
+            </a>
         </nav>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        const sidebar = document.getElementById('mySidebar');
-
-        // Función para verificar la URL actual y minimizar la sidebar
-        function checkPage() {
-            const currentPath = window.location.pathname;
-
-            // Verifica si la URL es diferente de la página de inicio
-            if (currentPath !== '/home') {
-                sidebar.classList.add('minimized'); // Agrega la clase "minimized"
-            } else {
-                sidebar.classList.remove('minimized'); // Quita la clase "minimized"
-            }
-        }
-
-        // Función para manejar la minimización y maximización de la sidebar
-        sidebar.addEventListener('mouseenter', () => {
-            sidebar.classList.remove('minimized'); // Quita la clase "minimized" al pasar el ratón
-        });
-
-        sidebar.addEventListener('mouseleave', () => {
-            const currentPath = window.location.pathname;
-            if (currentPath !== '/home') {
-                sidebar.classList.add('minimized'); // Agrega la clase "minimized" al salir el ratón
-            }
-        });
-
-        // Llama a la función al cargar la página
-        window.onload = checkPage;
-    </script>
 </body>
 </html>

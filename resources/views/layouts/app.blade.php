@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +12,6 @@
   <link rel="stylesheet" href="{{ asset('adminlte/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
-  
   <!-- Estilos personalizados -->
   <style>
     .logo-img {
@@ -25,18 +23,25 @@
     .navbar-custom {
       position: fixed; /* Cambiado a fixed para que se ajuste al ancho de la pantalla */
       top: 0; /* Asegura que esté en la parte superior */
-      left: 250px; /* Mantiene el margen izquierdo correspondiente a la sidebar */
+      left: 200px; /* Mantiene el margen izquierdo correspondiente a la sidebar */
       right: 0; /* Alinea a la derecha */
       z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
       background-color: white; /* Asegúrate de que el fondo sea blanco o el que desees */
       padding: 10px; /* Espaciado interno */
     }
+    .content-custom {
+      margin-top: 56px; /* Ajusta el margen superior para que no se solape con el navbar */
+      margin-left: 0px; /* Ajusta el margen izquierdo para mover el contenido más a la izquierda */
+      margin-right: 15px; /* Espaciado en el lado derecho */
+      padding: 0px; /* Espaciado interno del contenido */
+    }
     .content-wrapper {
       margin-top: 56px; /* Ajusta el margen superior para que no se solape con el navbar */
-      margin-left: 250px; /* Asegúrate de que el contenido comience después de la sidebar */
+      margin-left: 0px; /* Ajusta el margen izquierdo para mover el contenido más a la izquierda */
+      margin-right: 15px; /* Espaciado en el lado derecho */
     }
     .sidebar {
-      width: 250px; /* Ancho fijo para la sidebar */
+      width: 200px; /* Ancho fijo para la sidebar */
     }
   </style>
 </head>
@@ -54,7 +59,7 @@
       </div>
 
       <!-- Tu contenido principal -->
-      <div class="content-wrapper">
+      <div class="content-custom">
         @yield('content')
       </div>
     </div>
@@ -71,5 +76,3 @@
 
 </body>
 </html>
-
-
