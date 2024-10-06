@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VentasController;
+use App\Http\Controllers\ProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('home', [HomeController::class, 'show'])->name('home');
 
 Route::get('ventas', [VentasController::class, 'show'])->name('ventas');
+
+Route::get('producto', [ProductoController::class, 'show'])->name('producto');
 
 
 

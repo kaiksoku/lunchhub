@@ -75,7 +75,7 @@
                 <i class="fa-solid fa-truck"></i>
                 <span class="link-text">Compras</span>
             </a>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('producto') }}">
                 <i class="fa-solid fa-box-open"></i>
                 <span class="link-text">Productos</span>
             </a>
