@@ -34,6 +34,8 @@ Route::get('home', [HomeController::class, 'show'])->name('home');
 Route::get('ventas', [VentasController::class, 'show'])->name('ventas');
 
 Route::get('producto', [ProductoController::class, 'show'])->name('producto');
+Route::get('producto.create', [ProductoController::class, 'create'])->name('producto.create');
+Route::post('producto.guardar', [ProductoController::class, 'store'])->name('producto.guardar');
 
 
 

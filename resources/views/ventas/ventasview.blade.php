@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<title>Ventas</title>
 <style>
     /* Asegurando que la tabla tenga un diseño fijo */
     .table {
@@ -24,7 +25,7 @@
 
     /* Establece un ancho mínimo para la tabla */
     .table-responsive {
-        min-width: 800px; /* Ajusta este valor según tus necesidades */
+        min-width: 900px; /* Ajusta este valor según tus necesidades */
     }
 
     .card-body {
@@ -54,7 +55,7 @@
                                             <th scope="col">Código</th>
                                             <th scope="col">Fecha</th>
                                             <th scope="col">Hora</th>
-                                            <th scope="col">Cantidad de Productos</th>
+                                            <th scope="col">Productos</th>
                                             <th scope="col">Total</th>
                                             <th scope="col">Opciones</th>
                                         </tr>

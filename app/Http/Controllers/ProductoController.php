@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto; // Importa el modelo Producto
+use App\Models\Categoria; // Importa el modelo Producto
+use App\Http\Requests\ValidacionProducto;
+
 
 class ProductoController extends Controller
 {
@@ -30,20 +33,30 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::all(); 
+        return view('producto.productocreate', compact('categorias'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
+     * 
+     * 
      */
+
+     public function store(ValidacionProducto $request)
+    {
+        
+        $data = $request->validated();
+        Producto::create($data);
+        return redirect()->route('producto')->with('mensaje', 'Producto Registrado con Éxito.');
+    }
+     
     public function edit(string $id)
     {
         //

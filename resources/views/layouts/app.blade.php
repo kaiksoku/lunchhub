@@ -14,41 +14,53 @@
 
   <!-- Estilos personalizados -->
   <style>
+    /* Estilo para el logo */
     .logo-img {
       max-height: 35px; /* Ajusta el tamaño de tu logo */
     }
-    .sidebar-dark-primary {
-      background-color: #343a40; /* Color oscuro de fondo */
-    }
-    .navbar-custom {
-      position: fixed; /* Cambiado a fixed para que se ajuste al ancho de la pantalla */
-      top: 0; /* Asegura que esté en la parte superior */
-      left: 200px; /* Mantiene el margen izquierdo correspondiente a la sidebar */
-      right: 0; /* Alinea a la derecha */
-      z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
-      background-color: white; /* Asegúrate de que el fondo sea blanco o el que desees */
-      padding: 10px; /* Espaciado interno */
-    }
-    .content-custom {
-      margin-top: 56px; /* Ajusta el margen superior para que no se solape con el navbar */
-      margin-left: 0px; /* Ajusta el margen izquierdo para mover el contenido más a la izquierda */
-      margin-right: 15px; /* Espaciado en el lado derecho */
-      padding: 0px; /* Espaciado interno del contenido */
-    }
-    .content-wrapper {
-      margin-top: 56px; /* Ajusta el margen superior para que no se solape con el navbar */
-      margin-left: 0px; /* Ajusta el margen izquierdo para mover el contenido más a la izquierda */
-      margin-right: 15px; /* Espaciado en el lado derecho */
-    }
+
+    /* Sidebar fija */
     .sidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
       width: 200px; /* Ancho fijo para la sidebar */
+      background-color: #343a40; /* Color oscuro de fondo */
+      z-index: 1000; /* Asegura que esté por encima de otros elementos */
+      padding-top: 56px; /* Espaciado para que no se solape con el navbar */
+    }
+
+    /* Navbar fija */
+    .navbar-custom {
+      position: fixed;
+      top: 0;
+      left: 200px; /* Asegura que el navbar no se solape con la sidebar */
+      right: 0;
+      z-index: 1050; /* Asegura que esté por encima de otros elementos */
+      background-color: white;
+      padding: 10px;
+      height: 56px; /* Altura fija de la navbar */
+    }
+
+    /* Ajustes para el contenido principal */
+    .content-custom {
+      margin-top: 66px; /* Ajuste para evitar que el contenido se solape con la navbar (66px considerando el padding de la navbar) */
+      margin-left: 200px; /* Ajuste del margen izquierdo para que no se solape con la sidebar */
+      padding: 30px; /* Espaciado interno */
+    }
+
+    /* Contenedor que evita que la sidebar se mueva */
+    .content-wrapper {
+      margin-top: 66px; /* Ajuste del margen superior para que no se solape con el navbar */
+      margin-left: 200px; /* Ajuste para el ancho de la sidebar */
+      padding-right: 15px; /* Espaciado en el lado derecho */
     }
   </style>
 </head>
 <body>
 
   <div class="d-flex">
-
     <!-- Incluye el sidebar -->
     @include('partials.sidebar')
 
