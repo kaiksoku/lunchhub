@@ -183,6 +183,38 @@
 }
 
 
+.mensaje-alert {
+    position: fixed; /* Fija el mensaje en una posición específica de la pantalla */
+    top: 70px; /* Separa el mensaje de la parte superior */
+    right: 20px; /* Separa el mensaje de la parte derecha */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo negro con opacidad del 80% */
+    color: #fff; /* Texto blanco */
+    padding: 15px 20px; /* Espaciado interno del mensaje */
+    border-radius: 5px; /* Bordes redondeados */
+    z-index: 1000; /* Asegura que esté encima de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+    display: flex; /* Usado para colocar la franja al lado del contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    transition: opacity 1s ease; /* Transición de desvanecimiento */
+}
+
+.mensaje-alert::before {
+    content: ""; /* Elemento decorativo */
+    width: 5px; /* Grosor de la franja */
+    height: 100%; /* Altura total del mensaje */
+    background-color: #333; /* Color gris oscuro para la franja */
+    margin-right: 10px; /* Separación entre la franja y el contenido */
+    border-radius: 2px 0 0 2px; /* Bordes redondeados en la franja */
+}
+
+.mensaje-alert.hidden {
+    opacity: 0; /* Oculta el mensaje con opacidad */
+}
+.container {
+    width: 100% !important;
+    max-width: 100% !important; /* Asegura que ocupe todo el ancho */
+    padding: 0 !important; /* Quita el padding si deseas que vaya de borde a borde */
+}
 /* hace que el input (campo de texto) se oculte hasta que el puntero pase sobre el boton search
 
 .form-outline {

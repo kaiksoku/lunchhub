@@ -85,6 +85,7 @@
   <script src="{{ asset('adminlte/js/jquery.min.js') }}"></script>
   <script src="{{ asset('adminlte/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
+  <script src="{{ asset('archivos/tables/table.js') }}"></script>
 
 </body>
 </html>

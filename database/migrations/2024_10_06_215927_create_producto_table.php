@@ -1,10 +1,8 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-class CreateVentasTable extends Migration
+class CreateProductoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,28 +11,21 @@ class CreateVentasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ventas', function (Blueprint $table) {
-            $table->id('ven_id'); // ID autoincremental
-            $table->string('vent_codigo'); // Código de la factura
-            
-            // Definir columna para clave foránea 'usuarios'
-            $table->unsignedBigInteger('vent_usuario'); // Campo para la clave foránea usuarios
-            // Definir la clave foránea de manera explícita para 'usuarios'
-            $table->foreign('vent_usuario', 'fk_ventas_usuarios')
-                  ->references('id')->on('users')
-
-            // Definir columna para clave foránea 'productos' (si necesitas almacenar más que solo JSON)
-            $table->unsignedBigInteger('vent_producto_id'); // Campo para la clave foránea productos
-            // Definir la clave foránea de manera explícita para 'productos'
-            $table->foreign('vent_producto_id', 'fk_ventas_productos')
-                  ->references('prod_id')->on('producto')
-                
-            $table->date('vent_fecha'); // Fecha de la venta
-            $table->time('vent_hora'); // Hora de la venta
+        Schema::create('producto', function (Blueprint $table) {
+            $table->id('prod_id'); // id autoincremental
+            $table->string('prod_nombre'); // nombre del producto
+            $table->text('prod_descripcion'); // descripción del producto
+            $table->string('prod_codigo', 15)->unique(); // código de barras (máximo 13 caracteres)
+            $table->integer('prod_cantidad'); // cantidad en stock
+            $table->decimal('prod_precio', 10, 2); // precio con hasta 10 dígitos y 2 decimales
+            $table->unsignedBigInteger('prod_categoria'); // campo para la clave foránea
+            // Definir la clave foránea de manera explícita
+            $table->foreign('prod_categoria', 'fk_productos_categoria')
+                  ->references('cat_id')->on('categoria')
+                  ->onDelete('cascade'); // Elimina productos si se elimina la categoría
             $table->timestamps(); // Campos created_at y updated_at
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -42,7 +33,6 @@ class CreateVentasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('producto');
     }
 }
-

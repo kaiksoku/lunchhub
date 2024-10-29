@@ -12,6 +12,8 @@ class Producto extends Model
     // Definir el nombre de la tabla si es diferente del plural del modelo
     protected $table = 'producto';
 
+    protected $primaryKey = 'prod_id';
+
     // Campos que se pueden asignar de manera masiva (mass assignable)
     protected $fillable = [
         'prod_nombre',

@@ -3,18 +3,27 @@
 @section('content')
 <title>Productos</title>
 
+@if(session('mensaje'))
+    <div class="alert alert-success mensaje-alert">
+        {{ session('mensaje') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger mensaje-alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <head>
-    <!-- Llamar al archivo CSS -->
-    <link rel="stylesheet" href="{{ asset('archivos/estilos.css') }}">
-    <!-- Llamar al archivo JavaScript -->
-    <script src="{{ asset('archivos/funciones.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
 </head>
 
-<div class="container-fluid"> <!-- Elimina el "container" aquí -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
+<div class="container-fluid">
                     <div class="card card-outline card-success">
                         <div class="card-header">
                             <div class="d-flex align-items-center w-100">
@@ -31,7 +40,7 @@
                                     @csrf
                                     <div class="mr-2 d-flex align-items-center">
                                         <span class="mr-1">Desde:</span>
-                                        <input type="date" class="form-control" id="fechaDesde" name="fechaDesde" required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Imprimir Desde'" placeholder="Imprimir Desde">
+                                        <input type="date" class="form-control" id="fechaDesde" name="fechaDesde" required placeholder="Imprimir Desde">
                                     </div>
                                     <div class="mr-2 d-flex align-items-center">
                                         <span class="mr-1">Hasta:</span>
@@ -45,57 +54,72 @@
                                         </div>
                                     </div>
                                 </form>
+                                
+                                <!-- Barra de búsqueda -->
                                 <div class="ms-auto d-flex align-items-center">
-                                    <div class="input-group-wrapper">
-                                        <div class="input-group">
-                                            <div class="form-outline" data-mdb-input-init>
-                                                <input type="search" id="form1" class="form-control" />
-                                            </div>
-                                            <button type="button" class="btn btn-primary" data-mdb-ripple-init>
-                                                <i class="fas fa-search"></i>
-                                            </button>
+                                <div class="input-group-wrapper">
+                                    <form action="{{ route('producto') }}" method="GET" class="input-group" id="search-form">
+                                        <div class="form-outline" data-mdb-input-init>
+                                            <input type="search" id="form1" name="search" class="form-control" value="{{ request('search') }}" placeholder="Buscar producto" />
                                         </div>
-                                    </div>
+                                        <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </form>
+                                </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" id="tabla-data" cellspacing="0">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Producto</th>
-                                            <th scope="col">Existencias</th>
-                                            <th scope="col">Categoría</th>
-                                            <th scope="col">Precio</th>
-                                            <th scope="col">Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($productos as $producto)
-                                        <tr>
-                                            <th scope="col">{{ $loop->iteration }}</th>
-                                            <td>{{ $producto->prod_nombre }}</td>
-                                            <td>{{ $producto->prod_cantidad }}</td>
-                                            <td>{{ $producto->categoria->cat_nombre }}</td>
-                                            <td>{{ $producto->prod_precio }}</td>
-                                            <td>
-                                                <i class="fa-regular fa-trash-can"></i>&nbsp;
-                                                <i class="fa-regular fa-pen-to-square"></i>&nbsp;
-                                                <i class="fa-regular fa-eye"></i>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                @if($productos->isEmpty())
+                                    <p class="text-center">No hay resultados para "{{ request('search') }}"</p>
+                                @else
+                                    <table class="table table-striped table-hover" id="tabla-data" cellspacing="0">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Producto</th>
+                                                <th scope="col">Existencias</th>
+                                                <th scope="col">Categoría</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($productos as $producto)
+                                            <tr>
+                                                <th scope="col">{{ $loop->iteration }}</th>
+                                                <td>{{ $producto->prod_nombre }}</td>
+                                                <td>{{ $producto->prod_cantidad }}</td>
+                                                <td>{{ $producto->categoria->cat_nombre }}</td>
+                                                <td>{{ $producto->prod_precio }}</td>
+                                                <td>
+                                                    <a href="{{ route('producto.eliminar', ['id' => $producto->prod_id]) }}" 
+                                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                                                        <i class="text-danger far fa-trash-alt"></i>
+                                                    </a>&nbsp;
+                                                    <a>
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </a>
+                                                    &nbsp;
+                                                        <i class="fa-regular fa-eye"></i>
+                                                </td>
+                                            </tr>
+
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    
+                                    <!-- Enlaces de paginación -->
+                                    <div class="d-flex justify-content-center mt-4">
+                                        {{ $productos->links('pagination::bootstrap-4') }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
-                    </div> <!-- .card -->
-                </div> <!-- .col-lg-12 -->
-            </div> <!-- .row -->
-        </div> <!-- .container-fluid interno -->
-    </section> <!-- .content -->
-</div> <!-- .container-fluid principal -->
+                     <script src="{{ asset('archivos/tables/table.js') }}"></script>
+    </div>
+</div>    
 @endsection

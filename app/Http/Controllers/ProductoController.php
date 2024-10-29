@@ -19,12 +19,27 @@ class ProductoController extends Controller
         $this->middleware('auth');
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        // Trae los productos ordenados por su id
-        $productos = Producto::orderby('prod_id')->get(); 
-        return view('producto.productoview', compact('productos'));
+        $search = $request->input('search');
+
+        $productos = Producto::with('categoria')
+            ->when($search, function ($query, $search) {
+                return $query->where('prod_nombre', 'like', '%' . $search . '%')
+                    ->orWhere('prod_cantidad', 'like', '%' . $search . '%')
+                    ->orWhere('prod_precio', 'like', '%' . $search . '%')
+                    ->orWhereHas('categoria', function ($query) use ($search) {
+                        $query->where('cat_nombre', 'like', '%' . $search . '%');
+                    });
+            })
+            ->orderby('prod_id')
+            ->paginate(10);
+
+        return view('producto.productoview', compact('productos', 'search'));
     }
+
+
+
 
 
 
@@ -73,8 +88,29 @@ class ProductoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy($id)
+{
+    try {
+        // Busca el producto por su ID
+        $producto = Producto::find($id);
+
+        // Verifica si el producto existe
+        if (!$producto) {
+            return redirect()->route('producto')->withErrors(['error' => 'El producto no existe.']);
+        }
+
+        // Elimina el producto
+        $producto->delete();
+
+        // Redirige con un mensaje de éxito
+        return redirect()->route('producto')->with(["mensaje" => "Registro eliminado con éxito"]);
+    } catch (\Illuminate\Database\QueryException $e) {
+        // Maneja posibles errores de base de datos
+        return redirect()->route('producto')->withErrors(['catch' => $e->getMessage()]);
     }
 }
+
+
+        
+}
+

@@ -2,11 +2,14 @@
 
 
 @section('content')
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card card-outline card-success">
+<style>
+.container{
+    width:800px;
+    margin-left: 100px;
+}
+</style> 
+<div class="container">
+            <div class="card card-outline card-success">
                     <div class="card-header">
                         <h3 class="card-title">Registrar un nuevo Producto<small></small></h3>
                         <div class="card-tools">
@@ -20,7 +23,7 @@
                     @csrf
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="numeroCuenta" class="col-sm-12 col-lg-2 control-label text-sm-left text-lg-right">Código (Barras)</label>
+                                <label for="numeroCuenta" class="col-sm-12 col-lg-2 control-label text-sm-left text-lg-right">Código de Barras</label>
                                 <div class="col-sm-12 col-lg-10">
                                     <input name="prod_codigo" type="text" class="form-control" id="numeroCuenta" maxlength="25" required>
                                 </div>
@@ -75,9 +78,8 @@
                             </div>
                         </div>
                     </form>
-                </div>
             </div>
-        </div>
-    </div>
-</section>
+        <script src="{{ asset('archivos/tables/table.js') }}"></script>
+</div>
+
 @endsection

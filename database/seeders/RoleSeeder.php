@@ -2,26 +2,20 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
-use Spatie\Permmision\Models\Role;
-use Spatie\Permmision\Models\Permmision;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        $role0 = Role::create(['name' -> 'admin']);
-        $role1 = Role::create(['name' -> 'cajero']);
+        $roleadmin = Role::create(['name' => 'Admin']);
+        $rolecajero = Role::create(['name' => 'Cajero']);
 
-        Permission:create(['name' -> 'ver']);
-        Permission:create(['name' -> 'crear']);
-        Permission:create(['name' -> 'editar']);
-        Permission:create(['name' -> 'eliminar']);
-
+        Permission::create(['name' => 'producto']);
+        Permission::create(['name' => 'producto.create']);
+        Permission::create(['name' => 'producto.editar']);
+        Permission::create(['name' => 'producto.eliminar']);
     }
 }

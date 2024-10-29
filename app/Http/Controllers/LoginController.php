@@ -8,8 +8,7 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('login'); // Asegúrate de que la vista tenga el nombre correcto
-    }
+        return view('login'); 
 
     public function login(Request $request)
     {
