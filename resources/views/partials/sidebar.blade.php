@@ -89,7 +89,7 @@
                 <a class="nav-link" data-toggle="collapse" href="#inventoryMenu" role="button" aria-expanded="{{ Request::is('producto*') || Request::is('categoria*') ? 'true' : 'false' }}" aria-controls="inventoryMenu">
                     <i class="fa-solid fa-warehouse"></i>
                     <span class="link-text">Inventario</span>
-                    <i class="fa-solid fa-chevron-down icon-right"></i>
+                    <i class="fa-solid fa-arrow-down-short-wide icon-right icon-down"></i>
                 </a>
                 <div class="collapse {{ Request::is('producto*') || Request::is('categoria*') ? 'show' : '' }}" id="inventoryMenu">
                     <ul class="nav flex-column ml-3">
@@ -100,7 +100,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">
+                            <a class="nav-link {{ Request::is('categoria*') ? 'active' : '' }}" href="{{ route('categoria') }}">
                                 <i class="fa-solid fa-tags"></i>
                                 <span class="link-text">Categorías</span>
                             </a>
@@ -112,10 +112,12 @@
                 <i class="fa-regular fa-rectangle-list"></i>
                 <span class="link-text">Reportes</span>
             </a>
-            <a class="nav-link" href="#">
+            <li class="nav-item">
+            <a class="nav-link {{ Request::is('usuarios*') ? 'active' : '' }}" href="{{ route('usuarios.index') }}">
                 <i class="fa-solid fa-circle-user"></i>
                 <span class="link-text">Usuarios</span>
             </a>
+            </li>
         </nav>
     </div>
 

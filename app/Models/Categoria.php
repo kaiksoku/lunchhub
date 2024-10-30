@@ -12,6 +12,8 @@ class Categoria extends Model
     // Definir el nombre de la tabla si es diferente del plural del modelo
     protected $table = 'categoria';
 
+    protected $primaryKey = 'cat_id';
+
     // Campos que se pueden asignar de manera masiva (mass assignable)
     protected $fillable = [
         'cat_nombre',

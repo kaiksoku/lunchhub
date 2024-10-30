@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function show()
     {
-        return view('register');
+        return view('auth.register');
     }
 
     public function register(Request $request)
@@ -27,7 +32,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('welcome')->with('success', 'Registration successful');
+        return redirect()->route('usuarios.index')->with('mensaje', 'El Usuario se creó con éxito.');
 
     }
 }

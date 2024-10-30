@@ -1,6 +1,6 @@
 <!-- resources/views/partials/navbar.blade.php -->
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
+    <div class="container-fluid"> <!-- Cambiado a container-fluid para maximizar el ancho -->
     
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,7 @@
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto" style="margin-left: auto;">
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
@@ -28,7 +28,7 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" style="margin-left: auto;"> <!-- Añadido margin-left:auto para forzar la alineación a la derecha -->
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
@@ -50,4 +50,3 @@
         </div>
     </div>
 </nav>
-

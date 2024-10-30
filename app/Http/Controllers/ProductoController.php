@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto; // Importa el modelo Producto
-use App\Models\Categoria; // Importa el modelo Producto
+use App\Models\Categoria; // Importa el modelo categoria
 use App\Http\Requests\ValidacionProducto;
 
 

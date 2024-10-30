@@ -16,15 +16,19 @@ class RedirectIfAuthenticated
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
-    {
-        $guards = empty($guards) ? [null] : $guards;
+{
+    $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+    foreach ($guards as $guard) {
+        if (Auth::guard($guard)->check()) {
+            // Permitir el acceso a la ruta 'register' sin redirigir al home
+            if ($request->route()->getName() !== 'register') {
                 return redirect(RouteServiceProvider::HOME);
             }
         }
-
-        return $next($request);
     }
+
+    return $next($request);
+}
+
 }
