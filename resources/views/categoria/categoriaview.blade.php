@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<head>
-    <title>Categorías</title>
-    <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
-</head>
+<title>Categorías</title>
+
 
 @if(session('mensaje'))
     <div class="alert alert-success mensaje-alert">
@@ -21,6 +19,10 @@
         </ul>
     </div>
 @endif
+
+<head>
+    <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
+</head>
 
 <div class="container-fluid">
     <div class="card card-outline card-success">

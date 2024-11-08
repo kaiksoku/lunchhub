@@ -86,9 +86,11 @@
                                 <a>
                                     <i class="text-danger far fa-trash-alt"></i>
                                 </a>&nbsp;
-                                <a href="">
-                                    <i class="fa-regular fa-pen-to-square"></i>
+
+                                <a href="{{ route('usuarios.edit', ['usuario' => $usuario->id]) }}" onclick="return confirm('¿Estás seguro de que deseas editar usuario?');">
+                                <i class="fa-regular fa-pen-to-square"></i>
                                 </a>&nbsp;
+
                                 <a href="">
                                     <i class="fa-regular fa-eye"></i>
                                 </a>

@@ -1,0 +1,101 @@
+
+/* Estilo para el logo */
+.logo-img {
+    max-height: 35px; /* Ajusta el tamaño de tu logo */
+}
+
+/* Sidebar fija */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 200px; /* Ancho fijo para la sidebar */
+    background-color: #343a40; /* Color oscuro de fondo */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    padding-top: 56px; /* Espaciado para que no se solape con el navbar */
+    height: 100vh;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar fija */
+.navbar-custom {
+    position: fixed;
+    top: 0;
+    left: 190px; /* Asegura que el navbar no se solape con la sidebar */
+    right: 0;
+    z-index: 999; /* Asegura que esté por encima de otros elementos */
+    background-color: white;
+    padding: 10px;
+    height: 56px; /* Altura fija de la navbar */
+}
+
+/* Ajustes para el contenido principal */
+.content-custom {
+    margin-top: 66px; /* Ajuste para evitar que el contenido se solape con la navbar (66px considerando el padding de la navbar) */
+    margin-left: 200px; /* Ajuste del margen izquierdo para que no se solape con la sidebar */
+    padding: 30px; /* Espaciado interno */
+}
+
+/* Contenedor que evita que la sidebar se mueva */
+.content-wrapper {
+    margin-top: 66px; /* Ajuste del margen superior para que no se solape con el navbar */
+    margin-left: 200px; /* Ajuste para el ancho de la sidebar */
+    padding-right: 15px; /* Espaciado en el lado derecho */
+}
+
+/* Estilos adicionales de la sidebar */
+.sidebar .navbar-brand {
+    color: #ffffff;
+    font-size: 1.25rem;
+    padding: 10px 0;
+    border-bottom: 2px solid #495057;
+}
+
+.sidebar a {
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+    color: white;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 5px;
+}
+
+.sidebar .nav-link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+}
+
+.icon-right {
+    margin-left: auto;
+}
+
+/* Estilo para la opción activa */
+.sidebar .nav-link.active {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 10px;
+}
+
+.sidebar .nav-link.active i {
+    color: #000000;
+}

@@ -20,7 +20,7 @@ class ValidacionProducto extends FormRequest
     {
         return [
         'prod_nombre' => 'required|string|max:255',
-        'prod_descripcion' => 'nullable|string',
+        'prod_descripcion' => 'nullable|string|max:255',
         'prod_codigo'=> 'required|numeric',
         'prod_cantidad' => 'required|numeric',
         'prod_precio' => 'required|numeric',

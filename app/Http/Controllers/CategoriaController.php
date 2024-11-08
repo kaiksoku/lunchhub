@@ -18,7 +18,7 @@ class CategoriaController extends Controller
     $search = $request->input('search');
 
     $categorias = Categoria::when($search, function ($query, $search) {
-            return $query->where('cat_name', 'like', '%' . $search . '%');
+            return $query->where('cat_nombre', 'like', '%' . $search . '%');
         })
         ->orderBy('cat_id')
         ->paginate(10);
@@ -63,9 +63,9 @@ class CategoriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        return view('categoria.categoriaedit');
     }
 
     /**

@@ -40,6 +40,9 @@
                                 <label for="tipoCuenta" class="col-sm-12 col-lg-2 control-label text-sm-left text-lg-right requerido">Categoria</label>
                                 <div class="col-sm-12 col-lg-4">
                                     <select name="prod_categoria" class="form-control select2" id="tipoCuenta" required>
+                                    <option value="" disabled selected class="placeholder-option">
+                                        - Seleccionar categoría -
+                                        </option>
                                     @foreach($categorias as $categoria)
                                         <option value="{{$categoria['cat_id']}}" {{ old('ctab_tipo') == $categoria['cat_id'] ? 'selected' : '' }}>
                                         {{$categoria['cat_nombre']}}
@@ -64,7 +67,7 @@
                             <div class="form-group row">
                                 <label for="numeroCuenta" class="col-sm-12 col-lg-2 control-label text-sm-left text-lg-right">Descripcion</label>
                                 <div class="col-sm-12 col-lg-10">
-                                    <input name="prod_descripcion" type="text" class="form-control" id="numeroCuenta" maxlength="25" required>
+                                    <input name="prod_descripcion" type="text" class="form-control" id="numeroCuenta" maxlength="60" required>
                                 </div>
                             </div>
                         </div>

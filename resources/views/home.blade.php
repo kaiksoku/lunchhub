@@ -4,8 +4,25 @@
 
 @section('content')
 
+@if(session('mensaje'))
+    <div class="alert alert-success mensaje-alert">
+        {{ session('mensaje') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger mensaje-alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <head>
 <link rel="stylesheet" href="{{ asset('archivos/cards/cards.css') }}">
+<link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
 </head>
 
 <div class="container">

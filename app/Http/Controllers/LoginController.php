@@ -8,7 +8,9 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('login'); 
+        return view('auth.login'); 
+    }
+
 
     public function login(Request $request)
     {
@@ -20,8 +22,10 @@ class LoginController extends Controller
 
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->intended('home')->with('success', 'Inicio de sesión exitoso.');
+            $user = Auth::user(); // Obtén el usuario autenticado
+            return redirect()->intended('home')->with('mensaje', 'Bienvenido, ' . $user->name . ', ¡Ha iniciado sesión con éxito!.');
         }
+        
 
         return back()->withErrors([
             'email' => 'Las credenciales proporcionadas son incorrectas.',

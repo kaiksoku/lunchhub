@@ -72,9 +72,9 @@ class ProductoController extends Controller
         return redirect()->route('producto')->with('mensaje', 'Producto Registrado con Éxito.');
     }
      
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        return view ('producto.productoedit');
     }
 
     /**

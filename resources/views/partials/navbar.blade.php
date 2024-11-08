@@ -1,4 +1,5 @@
 <!-- resources/views/partials/navbar.blade.php -->
+
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container-fluid"> <!-- Cambiado a container-fluid para maximizar el ancho -->
     
@@ -9,11 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                <!-- Aquí puedes agregar más elementos de navegación si lo deseas -->
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ms-auto" style="margin-left: auto;">
+            <ul class="navbar-nav ms-auto" style="margin-left">
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))

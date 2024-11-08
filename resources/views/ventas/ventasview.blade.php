@@ -42,7 +42,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Ventas realizadas</h3>
                             <div class="card-tools">
-                                <a href="" class="btn btn-block btn-success btn-sm">
+                                <a href="{{route('ventas.create')}}" class="btn btn-block btn-success btn-sm">
                                     Crear Nueva Venta<i class="fa fa-fw fa-plus-circle pl-1"></i></a>
                             </div>
                         </div>

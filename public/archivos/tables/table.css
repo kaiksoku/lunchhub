@@ -183,9 +183,20 @@
 }
 
 
+@keyframes slideDown {
+    from {
+        top: -100px; /* Inicia fuera de la pantalla, por encima del viewport */
+        opacity: 0; /* Transparente al inicio */
+    }
+    to {
+        top: 70px; /* Posición final del mensaje */
+        opacity: 1; /* Opacidad completa */
+    }
+}
+
 .mensaje-alert {
     position: fixed; /* Fija el mensaje en una posición específica de la pantalla */
-    top: 70px; /* Separa el mensaje de la parte superior */
+    top: 70px; /* Posición final del mensaje */
     right: 20px; /* Separa el mensaje de la parte derecha */
     background-color: rgba(0, 0, 0, 0.8); /* Fondo negro con opacidad del 80% */
     color: #fff; /* Texto blanco */
@@ -195,7 +206,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra sutil */
     display: flex; /* Usado para colocar la franja al lado del contenido */
     align-items: center; /* Centra verticalmente el contenido */
-    transition: opacity 1s ease; /* Transición de desvanecimiento */
+    animation: slideDown 1s ease forwards; /* Aplica la animación */
 }
 
 .mensaje-alert::before {
@@ -210,11 +221,8 @@
 .mensaje-alert.hidden {
     opacity: 0; /* Oculta el mensaje con opacidad */
 }
-.container {
-    width: 100% !important;
-    max-width: 100% !important; /* Asegura que ocupe todo el ancho */
-    padding: 0 !important; /* Quita el padding si deseas que vaya de borde a borde */
-}
+
+
 /* hace que el input (campo de texto) se oculte hasta que el puntero pase sobre el boton search
 
 .form-outline {
