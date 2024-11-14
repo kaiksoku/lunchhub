@@ -1,12 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<head>
 <style>
 .container{
     width:900px;
     margin-left: 100px;
 }
 </style> 
+
+<link rel="stylesheet" href="{{ asset('archivos/fieldset.css') }}">
+</head>
 
 <div class="container">
     <div class="card card-outline card-success">
@@ -65,6 +69,24 @@
             </div>
         </div>
     </div>
+
+    <fieldset class="border p-2 col-sm-12 col-lg-12 custom-fieldset">
+    <legend class="w-auto custom-legend">Asignación de Roles</legend>
+    <br>
+
+    <div class="form-group row justify-content-center">
+        <label for="role" class="col-sm-12 col-lg-2 control-label text-sm-left text-lg-right">Rol</label>
+        <div class="col-sm-12 col-lg-4">
+            <select class="form-control" id="role" name="role_id">
+                <option value="" disabled selected>Selecciona un rol</option>
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</fieldset>
+
 
     <div class="card-footer">
         <div class="row">

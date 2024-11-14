@@ -95,19 +95,20 @@
                                                 <td>{{ $producto->prod_cantidad }}</td>
                                                 <td>{{ $producto->categoria->cat_nombre }}</td>
                                                 <td>{{ $producto->prod_precio }}</td>
-                                                <td>
+                                                <td style="display: flex; align-items: center;">
                                                     <a href="{{ route('producto.eliminar', ['id' => $producto->prod_id]) }}" 
-                                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');" 
+                                                    data-toggle="tooltip" title="Eliminar este registro" style="margin: 0 10px;">
                                                         <i class="text-danger far fa-trash-alt"></i>
-                                                    </a>&nbsp;
-                                                    <a>
+                                                    </a>
+                                                    <a href="#" data-toggle="tooltip" title="Editar este registro" style="margin: 0 10px;">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
-                                                    &nbsp;
-                                                        <i class="fa-regular fa-eye"></i>
+                                                    <a href="#" data-toggle="tooltip" title="Ver detalles" style="margin: 0 10px;">
+                                                        <i class="fa-regular fa-eye" style="color: black"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
-
                                             @endforeach
                                         </tbody>
                                     </table>

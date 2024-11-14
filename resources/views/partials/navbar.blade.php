@@ -1,6 +1,5 @@
 <!-- resources/views/partials/navbar.blade.php -->
-
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md shadow-sm navbar-blue">
     <div class="container-fluid"> <!-- Cambiado a container-fluid para maximizar el ancho -->
     
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -34,12 +33,24 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                        
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                             <div class="justify-content: space-between">
+                                                {{ __('Perfil  ') }}<i class="fa-solid fa-id-badge" align-text="right"></i>
+                                            </div>
+                            </a>
+                        
+
+                        <div class="justify-content: space-between">
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                 {{ __('Cerrar sesión  ') }}<i class="fa-solid fa-power-off"></i>
                             </a>
-
+                        </div>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>

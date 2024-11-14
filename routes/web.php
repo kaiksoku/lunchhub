@@ -17,7 +17,8 @@ Auth::routes(['register' => false]);
 
 
 //Administrador------------------------------------------------------------------------------------------------------------------------------
-Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update', 'destroy'])->middleware('can:usuarios')->names('usuarios');
+Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->middleware('can:usuarios')->names('usuarios');
+Route::get('usuarios/eliminar/{id}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
 Route::get('register', [RegisterController::class, 'show'])->middleware('auth')->middleware('can:register')->name('register');
 Route::post('register/create', [RegisterController::class, 'register'])->middleware('auth')->middleware('can:register.create')->name('register.create');
 //Administrador------------------------------------------------------------------------------------------------------------------------------

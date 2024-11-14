@@ -82,17 +82,19 @@
                                 @endforeach
                             @endif
                             </td>
-                            <td>
-                                <a>
+                            <td style="display: flex; align-items: center;">
+                                <a href="{{ route('usuarios.destroy', ['id' => $usuario->id])}}" onclick="return confirm('¿Estás seguro de que deseas eliminar usuario?');" 
+                                data-toggle="tooltip" title="Eliminar este registro" style="margin: 0 10px;">
                                     <i class="text-danger far fa-trash-alt"></i>
                                 </a>&nbsp;
 
-                                <a href="{{ route('usuarios.edit', ['usuario' => $usuario->id]) }}" onclick="return confirm('¿Estás seguro de que deseas editar usuario?');">
+                                <a href="{{ route('usuarios.edit', ['usuario' => $usuario->id]) }}" onclick="return confirm('¿Estás seguro de que deseas editar usuario?');"
+                                data-toggle="tooltip" title="Editar este registro" style="margin: 0 10px;">
                                 <i class="fa-regular fa-pen-to-square"></i>
                                 </a>&nbsp;
 
-                                <a href="">
-                                    <i class="fa-regular fa-eye"></i>
+                                <a href="" data-toggle="tooltip" title="Ver Detalles" style="margin: 0 10px;">
+                                    <i class="fa-regular fa-eye" style="color: black"></i>
                                 </a>
                             </td>
                         </tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -15,7 +16,8 @@ class RegisterController extends Controller
 
     public function show()
     {
-        return view('auth.register');
+        $roles = Role::all();
+        return view('auth.register', compact('roles'));
     }
 
     public function register(Request $request)
@@ -26,11 +28,13 @@ class RegisterController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->roles()->attach($request->role_id); // Asigna el rol seleccionado
 
         return redirect()->route('usuarios.index')->with('mensaje', 'El Usuario se creó con éxito.');
 

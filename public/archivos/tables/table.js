@@ -38,6 +38,9 @@ if (searchInput && searchForm) {
   });
 }
 
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
 
 

@@ -72,6 +72,28 @@ class UsuariosController extends Controller
 
         return redirect()->route('usuarios.index')->with('mensaje', 'Cambios actualizados correctamente.');
     }
+
+    public function destroy($id)
+    {
+        try {
+            // Busca el producto por su ID
+            $usuario = User::find($id);
+    
+            // Verifica si el producto existe
+            if (!$usuario) {
+                return redirect()->route('usuarios.index')->withErrors(['error' => 'No pudimos encontrar el Usuario.']);
+            }
+    
+            // Elimina el producto
+            $usuario->delete();
+    
+            // Redirige con un mensaje de éxito
+            return redirect()->route('usuarios.index')->with(["mensaje" => "Usuario eliminado con éxito"]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Maneja posibles errores de base de datos
+            return redirect()->route('usuarios.index')->withErrors(['catch' => $e->getMessage()]);
+        }
+    }
 }
 
 

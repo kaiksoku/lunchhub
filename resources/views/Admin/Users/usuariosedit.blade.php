@@ -78,7 +78,7 @@
     <br>
 
     <div class="form-group row justify-content-center">
-        <label for="tipoCuenta" class="col-sm-12 col-lg-2 control-label text-sm-left text-lg-right requerido">Rol</label>
+        <label class="col-sm-12 col-lg-2 control-label text-sm-left text-lg-right requerido">Rol</label>
         <div class="col-sm-12 col-lg-4">
             <select name="role_id" class="form-control select2" required>
     @if($usuario->roles->isEmpty())
@@ -98,8 +98,6 @@
         @endforeach
     @endif
 </select>
-
-
             </select>
         </div>
     </div>
