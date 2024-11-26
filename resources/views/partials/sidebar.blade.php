@@ -1,71 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Sidebar HTML -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-JWm/o52r/h6wSm9MfbHca6XQ0C47eH1UZjNOQi0h8cZh5XYvOT5DKgGsNhg9X2G2mF+xmdA9mjL3h7EF7XOdOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS Bundle (incluye Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
-<body>
-    <div class="sidebar" id="mySidebar">
-        <a href="{{ route('home') }}" class="navbar-brand">
-            <span class="link-text">El Manantial&nbsp </span>
-            <img src="{{ asset('imagenes/LogoTienda.png') }}" class="img-fluid" alt="Bienvenido" style="max-width: 20%; height: auto;">
-        </a>
-        <br>
-        <nav class="nav flex-column">
-            <a class="nav-link {{ Request::is('ventas') ? 'active' : '' }}" href="{{ route('ventas') }}">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="link-text">Ventas</span>
-            </a>
-            <a class="nav-link" href="#">
-                <i class="fa-solid fa-truck"></i>
-                <span class="link-text">Compras</span>
-            </a>
 
-            <!-- Enlace Inventario con submenú colapsable -->
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#inventoryMenu" role="button" aria-expanded="{{ Request::is('producto*') || Request::is('categoria*') ? 'true' : 'false' }}" aria-controls="inventoryMenu">
-                    <i class="fa-solid fa-warehouse"></i>
-                    <span class="link-text">Inventario</span>
-                    <i class="fa-solid fa-arrow-down-short-wide icon-right icon-down"></i>
-                </a>
-                <div class="collapse {{ Request::is('producto*') || Request::is('categoria*') ? 'show' : '' }}" id="inventoryMenu">
-                    <ul class="nav flex-column ml-3">
-                    @can('producto')
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('producto*') ? 'active' : '' }}" href="{{ route('producto') }}">
-                                <i class="fa-solid fa-box-open"></i>
-                                <span class="link-text">Productos</span>
-                            </a>
-                        </li>
-                        @endcan
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('categoria*') ? 'active' : '' }}" href="{{ route('categoria') }}">
-                                <i class="fa-solid fa-tags"></i>
-                                <span class="link-text">Categorías</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<div class="sidebar">
+<a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center justify-content-center" style="height: auto; padding: 0; margin: 0; position: relative; top: -35px;">
+    <img src="{{ asset('imagenes/marca.png') }}" class="img-fluid" alt="Bienvenido" style="max-width: 85%; height: auto; display: block;">
+</a>
+
+
+  <ul>
+    <li><a href="#"><i class="fa-solid fa-border-all icon"></i>&nbsp Dashboard</a></li>
+
+    <li><a href="#"><i class="fa-regular fa-bell icon"></i>&nbsp Mis Solicitudes</a></li>
+
+    <li class="nav-item">
+            <a class="nav-link {{ Request::is('restaurantes*') ? 'active' : '' }}" href="{{ route('restaurantes') }}">
+            <i class="fa-solid fa-shop icon"></i></i>
+                <span class="link-text">Restaurantes</span>
+            </a>
             </li>
-            <a class="nav-link" href="#">
-                <i class="fa-regular fa-rectangle-list"></i>
-                <span class="link-text">Reportes</span>
-            </a>
-            @can('usuarios')
+
+    <li><a href="#"><i class="fa-solid fa-book icon"></i>&nbsp Autorizaciones</a></li>
+
+    
+
+
+<li class="nav-item">
+    <a class="nav-link" data-bs-toggle="collapse" href="#Personal" role="button" 
+       aria-expanded="{{ Request::is('usuarios*') || Request::is('empleados*') ? 'true' : 'false' }}" 
+       data-bs-target="#Personal">
+       <i class="fa-solid fa-users icon"></i>
+        <span class="link-text">&nbsp Personal</span>
+        <i class="fa-solid fa-arrow-down-short-wide icon-right icon-down"></i>
+    </a>
+    <div class="collapse {{ Request::is('usuarios*') || Request::is('empleados*') ? 'show' : '' }}" id="Personal">
+        <ul class="nav flex-column ml-3">
             <li class="nav-item">
-            <a class="nav-link {{ Request::is('usuarios*') ? 'active' : '' }}" href="{{ route('usuarios.index') }}">
-                <i class="fa-solid fa-circle-user"></i>
-                <span class="link-text">Usuarios</span>
-            </a>
+                <a class="nav-link {{ Request::is('categoria*') ? 'active' : '' }}" href="{{ route('categoria') }}">
+                <i class="fa-solid fa-user icon"></i>
+                    <span class="link-text">&nbsp Empleados</span>
+                </a>
+            </li>
+            <li><a href="#"><i class="fa-regular fa-building icon"></i>&nbsp Departamentos</a></li>
+        </ul>
+    </div>
+    
+</li>
+        
+            <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="collapse" href="#Administracion" role="button" 
+       aria-expanded="{{ Request::is('usuarios*') || Request::is('roles*') ? 'true' : 'false' }}" 
+       data-bs-target="#Administracion">
+       <i class="fa-solid fa-sliders icon"></i>
+        <span class="link-text">&nbsp Administracion</span>
+        <i class="fa-solid fa-arrow-down-short-wide icon-right icon-down"></i>
+    </a>
+    <div class="collapse {{ Request::is('usuarios*') || Request::is('roles*') ? 'show' : '' }}" id="Administracion">
+        <ul class="nav flex-column ml-3">
+            @can('Ver Restaurante')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('usuarios*') ? 'active' : '' }}" href="{{ route('usuarios.index') }}">
+                
+                <i class="fa-solid fa-user-pen icon"></i>
+                    <span class="link-text">&nbsp Usuarios</span>
+                </a>
             </li>
             @endcan
-        </nav>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('roles*') ? 'active' : '' }}" href="{{ route('roles') }}">
+                <i class="fa-solid fa-users-gear icon"></i>
+                    <span class="link-text">&nbsp Roles</span>
+                </a>
+            </li>
+        </ul>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</li>
+  </ul>
+</div>

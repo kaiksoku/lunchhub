@@ -3,6 +3,11 @@
 @section('content')
 <title>Productos</title>
 
+<head>
+    <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
+</head>
+
+
 @if(session('mensaje'))
     <div class="alert alert-success mensaje-alert">
         {{ session('mensaje') }}
@@ -18,11 +23,6 @@
         </ul>
     </div>
 @endif
-
-<head>
-    <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
-</head>
-
 <div class="container-fluid">
                     <div class="card card-outline card-success">
                         <div class="card-header">
@@ -77,7 +77,7 @@
                                     <p class="text-center">No hay resultados para "{{ request('search') }}"</p>
                                 @else
                                     <table class="table table-striped table-hover" id="tabla-data" cellspacing="0">
-                                        <thead class="thead-dark">
+                                        <thead class="table-dark">
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Producto</th>

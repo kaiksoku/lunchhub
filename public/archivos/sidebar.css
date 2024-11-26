@@ -1,0 +1,119 @@
+.sidebar {
+    background-color: #1d6298; /* Fondo azul para la parte inferior de la sidebar */
+    width: 250px;
+    padding: 15px;
+    color: white;
+    position: fixed;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    padding-top: 56px; /* Espaciado para que no se solape con el navbar */
+    height: 100vh;
+  }
+
+  /* Sección superior de la Sidebar */
+  .sidebar-header {
+    background-color: #ffffff; /* Fondo blanco para la sección superior */
+    padding: 15px;
+    text-align: center;
+    color: #6BA342;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-top: 2px solid #6BA342;    /* Grosor superior */
+    border-right: 6px solid #6BA342;  /* Grosor derecho */
+    border-bottom: 4px solid #6BA342; /* Grosor inferior */
+    border-left: 8px solid #6BA342;   /* Grosor izquierdo */
+    border-radius: 20% 50% 20% 50%; /* Ajusta cada esquina para simular una forma de hoja */
+    width: 185px; /* Ajusta el tamaño del contenedor */
+    height: 75px;
+    margin: 0 auto;
+    box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.3); /* Sombra debajo y a la izquierda */
+}
+
+  
+
+  .sidebar-header h2 {
+    color: #c62e1f; /* Color del texto */
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    position: relative; /* Necesario para posicionar el ::after relativo al h2 */
+}
+
+.sidebar-header h2::after {
+    content: "";
+    display: block;
+    width: 80%; /* Ancho de la línea */
+    height: 6px; /* Grosor de la línea */
+    background-color: #1d6298; /* Color azul de la línea */
+    margin: 1px auto 0; /* Espaciado desde el texto */
+}
+
+
+  /* Estilos para la lista de navegación */
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px; /* Espacio entre la línea y el primer elemento */
+  }
+
+  .sidebar ul li {
+    margin: 10px 0;
+  }
+
+  .sidebar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  .sidebar ul li.active a,
+  .sidebar ul li a:hover {
+    background-color: #ffffff; /* Fondo blanco en el elemento activo o hover */
+    color: #1d6298; /* Texto en azul para contraste */
+  }
+
+  /* Estilos para los Iconos */
+  .sidebar ul li a .icon {
+    background-color: #ffffff;
+    color: #1d6298;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }.sidebar ul li ul.nav {
+    margin-left: 20px; /* Mayor margen desde la izquierda */
+    padding-left: 20px; /* Espaciado interno adicional */
+    border-left: 1px solid #ffffff; /* Línea para destacar como submenú */
+}
+
+.sidebar ul li ul.nav li {
+    margin: 5px 0; /* Espaciado vertical entre submenús */
+}
+
+.sidebar ul li ul.nav li a {
+    font-size: 0.9rem; /* Tamaño más pequeño para diferenciar */
+    padding: 8px 15px; /* Ajustar el padding */
+    color: #ffffff; /* Mantener consistencia */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.sidebar ul li ul.nav li a:hover {
+    background-color: #ffffff; /* Cambiar fondo en hover */
+    color: #1d6298; /* Texto azul para hover */
+}.sidebar .nav-link.active {
+    background-color: #ffffff;
+    color: #1d6298;
+    border: 1px solid #1f435f;
+    border-radius: 10px;
+}
+
+.sidebar .nav-link.active i {
+    color: #1d6298;
+}

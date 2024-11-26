@@ -8,6 +8,8 @@ use App\Http\Controllers\VentasController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\RestaurantesController;
+use App\Http\Controllers\RolesController;
 
 // Principal---------------------------------------------------------------------------------------------------------------------------------
 Route::get('/', function () { return view('welcome'); })->name('welcome');  // Asigna el nombre 'welcome' a la ruta
@@ -17,10 +19,14 @@ Auth::routes(['register' => false]);
 
 
 //Administrador------------------------------------------------------------------------------------------------------------------------------
-Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->middleware('can:usuarios')->names('usuarios');
+Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->middleware('can:Ver Usuarios')->names('usuarios');
 Route::get('usuarios/eliminar/{id}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
-Route::get('register', [RegisterController::class, 'show'])->middleware('auth')->middleware('can:register')->name('register');
-Route::post('register/create', [RegisterController::class, 'register'])->middleware('auth')->middleware('can:register.create')->name('register.create');
+Route::get('usuarios/register', [RegisterController::class, 'show'])->middleware('auth')->middleware('can:Crear Usuario')->name('register');
+Route::post('usuarios/create', [RegisterController::class, 'register'])->middleware('auth')->middleware('can:Crear Usuario')->name('register.create');
+
+Route::get('roles', [RolesController::class, 'show'])->name('roles');
+Route::get('roles/create', [RolesController::class, 'create'])->name('roles.create');
+Route::post('roles/guardar', [RolesController::class, 'store'])->name('roles.guardar');
 //Administrador------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -47,9 +53,11 @@ Route::get('producto/eliminar/{id}', [ProductoController::class, 'destroy'])->na
 
 // Módulo categorias
 Route::get('categoria', [CategoriaController::class, 'index'])->name('categoria');
-Route::get('categoria/create', [CategoriaController::class, 'create'])->name('categoria.create');
-Route::post('categoria/guardar', [CategoriaController::class, 'store'])->name('categoria.guardar');
-Route::get('categoria/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
+Route::get('restaurantes/crear', [CategoriaController::class, 'create'])->name('categoria.create');
+Route::post('restaurantes/guardar', [CategoriaController::class, 'store'])->name('categoria.guardar');
+Route::get('restaurantes/editar', [CategoriaController::class, 'edit'])->name('categoria.edit');
 
+// Módulo Restaurantes
+Route::get('restaurantes', [RestaurantesController::class, 'show'])->name('restaurantes');
 
 

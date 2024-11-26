@@ -57,7 +57,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped table-hover" id="tabla-data" cellspacing="0">
-                    <thead class="thead-dark">
+                    <thead class="table-dark">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>

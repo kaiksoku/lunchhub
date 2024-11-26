@@ -4,6 +4,11 @@
 
 @section('content')
 
+<head>
+<link rel="stylesheet" href="{{ asset('archivos/cards/cards.css') }}">
+<link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
+</head>
+
 @if(session('mensaje'))
     <div class="alert alert-success mensaje-alert">
         {{ session('mensaje') }}
@@ -20,10 +25,7 @@
     </div>
 @endif
 
-<head>
-<link rel="stylesheet" href="{{ asset('archivos/cards/cards.css') }}">
-<link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
-</head>
+
 
 <div class="container">
     <div class="card">

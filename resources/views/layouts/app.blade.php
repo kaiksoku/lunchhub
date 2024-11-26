@@ -6,22 +6,21 @@
   
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-qzS3HZZoabufLRen3Syp7EuybTzC2Qh38C7Lo8JNO6Ip8Kw5KHkTxIW+HfbF9ZaP" crossorigin="anonymous">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS Bundle (incluye Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
   <!-- En la sección <head> -->
   <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('adminlte/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('archivos/sidenav.css') }}">
+  <link rel="stylesheet" href="{{ asset('archivos/sidebar.css') }}">
   <link rel="stylesheet" href="{{ asset('archivos/appblade.css') }}">
-  
-  <style>
-.content-custom {
-    margin-top: 66px; /* Ajuste para evitar que el contenido se solape con la navbar (66px considerando el padding de la navbar) */
-    margin-left: 200px; /* Ajuste del margen izquierdo para que no se solape con la sidebar */
-    padding: 30px; /* Espaciado interno */
-}
-
-  </style>
   
 </head>
 <body>
