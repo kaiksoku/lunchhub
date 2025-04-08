@@ -14,24 +14,28 @@ class UserSeeder extends Seeder
             'name' => 'Bryan Moreno',
             'email' => 'Kaiksoku@gmail.com',
             'password' => bcrypt('Kaiksoku2328'), 
+            'departamento' => 3,
         ])->assignRole('Admin');
 
         User::create([
             'name' => 'Skarleth Ardon',
             'email' => 'gskar30@gmail.com',
             'password' => bcrypt('Kaiksoku2328'), 
+            'departamento' => 3,
             ])->assignRole('Solicitante');
 
         User::create([
             'name' => 'Jesus Lopez',
             'email' => 'jesus.lopez@dole.com',
             'password' => bcrypt('Kaiksoku2328'), 
+            'departamento' => 3,
             ])->assignRole('Supervisor');
 
         User::create([
             'name' => 'Mario Aguirre',
             'email' => 'mario.aguirre@dole.com',
             'password' => bcrypt('Kaiksoku2328'), 
+            'departamento' => 1,
             ])->assignRole('Admin');
     }
 }

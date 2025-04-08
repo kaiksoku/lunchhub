@@ -29,10 +29,10 @@
     <div class="card card-outline card-success">
         <div class="card-header">
             <div class="d-flex align-items-center w-100">
-                <h3 class="card-title mb-0">Registro de Usuarios</h3>
+                <h3 class="card-title mb-0">Listado de Empleados</h3>
                 <div class="ms-auto d-flex align-items-center">
-                    <a href="{{route('usuarios.create') }}" class="btn btn-success btn-sm ml-2">
-                        Registrar un Usuario<i class="fa fa-fw fa-plus-circle pl-1"></i>
+                    <a href="{{route('empleados.create') }}" class="btn btn-success btn-sm ml-2">
+                        Registrar un empleado <i class="fa fa-fw fa-plus-circle pl-1"></i>
                     </a>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     <div class="input-group-wrapper">
                         <form action="#" method="GET" class="input-group" id="search-form">
                             <div class="form-outline" data-mdb-input-init>
-                                <input type="search" id="form1" name="search" class="form-control" placeholder="Buscar usuario" />
+                                <input type="search" id="form1" name="search" class="form-control" placeholder="Buscar empleados" />
                             </div>
                             <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
                                 <i class="fas fa-search"></i>
@@ -63,7 +63,6 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Correo</th>
                             <th scope="col">Rol</th>
                             <th scope="col">Departamento</th>
                             <th scope="col">Opciones</th>
@@ -75,7 +74,6 @@
                         <tr>
                             <th scope="col">{{ $usuario->id }}</th>
                             <td>{{ $usuario->name }}</td>
-                            <td>{{ $usuario->email }}</td>
                             <td>
                             @if($usuario->roles->isEmpty())
                                 No asignado
@@ -97,13 +95,9 @@
                                 <i class="fa-regular fa-pen-to-square"></i>
                                 </a>&nbsp;
 
-                                <a href="{{ route('usuarios.show', ['usuario' => $usuario->id]) }}" 
-                                    data-toggle="tooltip" title="Ver detalles" style="margin: 0 10px;">
-                                    <i class="fa-regular fa-eye text-dark"></i>
+                                <a href="" data-toggle="tooltip" title="Ver Detalles" style="margin: 0 10px;">
+                                    <i class="fa-regular fa-eye" style="color: black"></i>
                                 </a>
-
-
-                
                             </td>
                         </tr>
                         @endforeach

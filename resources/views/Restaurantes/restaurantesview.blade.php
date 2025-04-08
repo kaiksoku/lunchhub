@@ -92,16 +92,8 @@
                 
                 <!-- Paginación -->
                 <div class="d-flex justify-content-center mt-4">
-                    <!-- Paginación simulada -->
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                                        {{ $restaurantes->links('pagination::bootstrap-4') }}
+                                    </div>
             </div>
         </div>
         <script src="{{ asset('archivos/tables/table.js') }}"></script>

@@ -30,8 +30,4 @@ class Producto extends Model
         return $this->belongsTo(Categoria::class, 'prod_categoria', 'cat_id');
     }
 
-    public function Nombre_Categoria()
-    {
-        return $this->belongsTo('App\Models\Admin\Categoria', 'cat_nombre', 'cat_id');
-    }
 }

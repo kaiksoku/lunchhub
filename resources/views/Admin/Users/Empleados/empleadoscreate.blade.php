@@ -23,7 +23,7 @@
             </div>
         </div>
 <div class="card-body">
-        <form method="POST" action="{{ route('register.guardar') }}" class="p-3">
+        <form method="POST" action="{{ route('empleados.guardar') }}" class="p-3">
             @csrf
             <div class="mb-3 row">
                 <label for="name" class="col-lg-4 col-form-label">Nombre de Usuario</label>
@@ -31,29 +31,8 @@
                     <input id="name" type="text" class="form-control" name="name" required>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label for="email" class="col-lg-4 col-form-label">Correo Electrónico</label>
-                <div class="col-lg-8">
-                    <input id="email" type="email" class="form-control" name="email" required>
-                </div>
-            </div>
-        
-            <div class="mb-3 row">
-                <label for="password" class="col-lg-4 col-form-label">Contraseña</label>
-                <div class="col-lg-8">
-                    <input id="password" type="password" class="form-control" name="password" required>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="password-confirm" class="col-lg-4 col-form-label">Confirmar Contraseña</label>
-                <div class="col-lg-8">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required 
-                        oninput="this.setCustomValidity(this.value !== document.getElementById('password').value ? 'Las contraseñas no coinciden' : '')">
-                    <div class="invalid-feedback">
-                        Las contraseñas no coinciden.
-                    </div>
-            </div>
-</div>
+    
+ 
 <br>
         <br>
 

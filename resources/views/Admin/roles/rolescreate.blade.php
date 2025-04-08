@@ -44,19 +44,19 @@
                 </a>
             </div>
         </div>
-
+        <div class="card-body">
         <form action="{{route('roles.guardar')}}" class="form-horizontal" method="POST" id="form-general" autocomplete="off">
             @csrf
-            <div class="card-body">
-                <br>
-            <div class="form-group row d-flex justify-content-center align-items-center text">
-                <label for="name" class="col-sm-12 col-lg-3 control-label text-sm-left text-lg-left">Nombre del Rol</label>
-                <div class="col-sm-12 col-lg-5">
-                    <input name="name" type="text" class="form-control" id="name" maxlength="25" required>
+            
+            <br>
+                <div class="form-group row d-flex justify-content-center align-items-center text">
+                    <label for="name" class="col-sm-12 col-lg-3 control-label text-sm-left text-lg-left">Nombre del Rol</label>
+                    <div class="col-sm-12 col-lg-5">
+                        <input name="name" type="text" class="form-control" id="name" maxlength="25" required>
+                    </div>
                 </div>
-            </div>
-<br>
-            </div>
+            <br>
+            
             <fieldset class="border p-2 col-sm-12 col-lg-12 custom-fieldset">
     <legend class="w-auto custom-legend">Asignación de Permisos</legend>
     <br>
@@ -323,7 +323,7 @@
 </fieldset>
 
 
-
+</div>
 
             <div class="card-footer">
                 <div class="row">

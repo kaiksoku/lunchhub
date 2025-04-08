@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use App\Models\Departamentos;
 
 class RegisterController extends Controller
 {
@@ -14,24 +15,26 @@ class RegisterController extends Controller
         $this->middleware('auth');
     }
 
-    public function show()
+    public function create()
     {
-        $roles = Role::all();
-        return view('auth.register', compact('roles'));
+        $roles = Role::where('name', '!=', 'empleado')->get();
+        $departamentos = Departamentos::all();
+        return view('auth.register', compact('roles', 'departamentos'));
     }
 
     public function register(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'email' => 'string|email|max:255|unique:users',
+            'password' => 'string|min:8|confirmed',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'departamento' => $request->departamento,
         ]);
 
         $user->roles()->attach($request->role_id); // Asigna el rol seleccionado

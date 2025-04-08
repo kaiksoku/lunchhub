@@ -6,40 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
+    body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('{{ asset('imagenes/welcome.jpg') }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            filter: blur(15px); 
-            z-index: -1;
-        }
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,    /* Fondo transparente donde está la imagen */
+        transparent 80%,
+        #34a853 80%, /* Franja verde */
+        #34a853 81.5%, /* Extiende la franja verde 1.5% */
+        #134164 81.5%, /* Azul ocupa el resto */
+        #134164 100%
+    );
+    z-index: 0;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 76.5%; /* Imagen ocupa el 60% desde el top */
+    background-image: url('{{ asset('imagenes/welcome.jpg') }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(15px); 
+    z-index: -1;
+}
+
+
 
         .login-container {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.);
             position: relative;
             z-index: 1;
-            width: 350px;
-            height: 280px;
+            width: 400px;
+            height: 300px;
             display: flex;
             flex-direction: column;
             justify-content: center; /* Centrado vertical */
@@ -64,7 +85,7 @@
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.9)); /* Degradado */
     border: none;
     padding: 0; /* Quita el padding */
-    border-radius: 0 0 25px 25px; /* Esquinas inferiores redondeadas */
+    border-radius: 0 0 15px 15px; /* Esquinas inferiores redondeadas */
     position: absolute; /* Posición absoluta */
     left: 50%; /* Centrar horizontalmente */
     transform: translateX(-50%); /* Centrar */
@@ -96,24 +117,43 @@
 
 .input-group .form-control {
     height: calc(2.25rem + 2px); /* Asegura que la altura del input sea igual al de input-group-text */
+}.user-logo {
+    position: absolute;
+    top: -75px; /* Posición vertical para que quede parcialmente fuera del card */
+    left: 50%; /* Centrar horizontalmente respecto al card */
+    transform: translateX(-50%); /* Ajusta el centro del logo */
+    width: 125px;
+    height: 125px;
+    background-color: white;
+    border-radius: 50%;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
     </style>
       <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
-
 </head>
 
-<div class="full-width-section text-center">
-    <img src="{{ asset('imagenes/user.png') }}" class="img-fluid" alt="Bienvenido" style="max-width: 12%; height: auto;">
-</div>
+
 <body> 
     <div class="row justify-content-center">
         <div class="login-container">
             <div class="card-body">
+                <div class="full-width-section text-center user-logo">
+                    <img src="{{ asset('imagenes/user.png') }}" class="img-fluid" alt="Bienvenido" style="max-width: 100%; height: auto;">
+                </div>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 <br>
 <br>
 <br>
+<br>
+
                     <div class="row mb-3 form-group">
                         <div class="col-md-12"> <!-- Cambiado a 12 para ocupar todo el ancho -->
                             <div class="input-group mb-3">

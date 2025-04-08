@@ -5,6 +5,7 @@
 
 <head>
     <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('archivos/tables/alerts.css') }}">
 </head>
 
     @if(session('mensaje'))
@@ -37,28 +38,12 @@
             </div>
             <br>
             <div class="d-flex align-items-center justify-content-between">
-                <form class="d-flex align-items-center">
-                    <div class="mr-2 d-flex align-items-center">
-                        <span class="mr-1">Desde:</span>
-                        <input type="date" class="form-control" required placeholder="Imprimir Desde">
-                    </div>
-                    <div class="mr-2 d-flex align-items-center">
-                        <span class="mr-1">Hasta:</span>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="reporte-container">
-                        <button type="button" class="btn btn-reporte">Reporte</button>
-                        <div class="reporte-opciones">
-                            <button type="submit" class="btn btn-1 ml-2"><i class="fa-regular fa-file-pdf"></i></button>
-                            <button type="submit" class="btn btn-2 ml-2"><i class="fa-regular fa-file-excel"></i></button>
-                        </div>
-                    </div>
-                </form>
+            
                 
                 <!-- Barra de búsqueda -->
                 <div class="ms-auto d-flex align-items-center">
                     <div class="input-group-wrapper">
-                    <form action="{{ route('restaurantes') }}" method="GET" class="input-group" id="search-form">
+                    <form action="{{ route('roles') }}" method="GET" class="input-group" id="search-form">
                             <div class="form-outline">
                             <input type="search" id="form1" name="search" class="form-control" value="{{ request('search') }}" placeholder="Buscar en Restaurantes" />
                             </div>
@@ -82,15 +67,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($roles as $roles)
+                    @foreach ($roles as $role)
                         <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $roles->name }}</td>
+                        <td>{{ $role->name }}</td>
         
                             <td style="display: flex; align-items: center;">
-                                <a href="#" data-toggle="tooltip" title="Eliminar este registro" style="margin: 0 10px;">
+                                <a href="{{ route('roles.eliminar', ['id' => $role->id])}}" onclick="return confirm('¿Estás seguro de que deseas eliminar este rol?');" 
+                                data-toggle="tooltip" title="Eliminar este registro" style="margin: 0 10px;">
                                     <i class="text-danger far fa-trash-alt"></i>
-                                </a>
+                                </a>&nbsp;
                                 <a href="#" data-toggle="tooltip" title="Editar este registro" style="margin: 0 10px;">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
@@ -103,19 +89,11 @@
                         <!-- Agrega más filas si es necesario -->
                     </tbody>
                 </table>
-                
-                <!-- Paginación -->
+            
                 <div class="d-flex justify-content-center mt-4">
-                    <!-- Paginación simulada -->
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                                        {{$roles->links('pagination::bootstrap-4') }}
+                                    </div>
+            </div>
             </div>
         </div>
         <script src="{{ asset('archivos/tables/table.js') }}"></script>

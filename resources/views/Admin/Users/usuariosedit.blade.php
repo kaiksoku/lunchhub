@@ -2,113 +2,118 @@
 
 @section('content')
 <head>
-    <style>
-    .container {
-        width: 900px;
-        margin-left: 100px;
-    }
-    </style>
+<style>
+.container {
+    width: 950px;
+    margin-left: 100px;
+}
+</style> 
+
+<title>
+    Edicion de Usuario
+</title>
 
 <link rel="stylesheet" href="{{ asset('archivos/fieldset.css') }}">
 </head>
 
-
 <div class="container">
     <div class="card card-outline card-success">
         <div class="card-header">
-            <h3 class="card-title">Editar Usuario<small></small></h3>
+            <h3 class="card-title">Editar Usuario</h3>
             <div class="card-tools">
-                <a href="{{ route('usuarios.index') }}" class="btn btn-block btn-info btn-sm">
-                    Volver al Listado<i class="fas fa-arrow-circle-left pl-1"></i>
+                <a href="{{ route('usuarios.index') }}" class="btn btn-outline-success">
+                    Volver al Listado <i class="fas fa-arrow-circle-left ms-1"></i>
                 </a>
             </div>
         </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('usuarios.update', $usuario->id) }}" class="p-3">
+                @csrf
+                @method('PUT') <!-- Método PUT para actualización -->
 
-        <form method="POST" action="{{ route('usuarios.update', ['usuario' => $usuario->id]) }}" class="form-horizontal" autocomplete="off">
-            @csrf
-            @method('PUT') <!-- Indica que es una actualización -->
-            
-            <div class="card-body">
-                <div class="form-group row">
-                    <label for="name" class="col-sm-12 col-lg-4 control-label text-sm-left text-lg-left">Nombre de Usuario</label>
-                    <div class="col-sm-12 col-lg-8">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $usuario->name) }}" required autocomplete="off" autofocus>
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                <!-- Nombre de Usuario -->
+                <div class="mb-3 row">
+                    <label for="name" class="col-lg-4 col-form-label">Nombre de Usuario</label>
+                    <div class="col-lg-8">
+                        <input id="name" type="text" class="form-control" name="name" value="{{ $usuario->name }}" required>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="email" class="col-sm-12 col-lg-4 control-label text-sm-left text-lg-left">Correo Electrónico</label>
-                    <div class="col-sm-12 col-lg-8">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $usuario->email) }}" required autocomplete="off">
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                <!-- Correo Electrónico -->
+                <div class="mb-3 row">
+                    <label for="email" class="col-lg-4 col-form-label">Correo Electrónico</label>
+                    <div class="col-lg-8">
+                        <input id="email" type="email" class="form-control" name="email" value="{{ $usuario->email }}" required>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="password" class="col-sm-12 col-lg-4 control-label text-sm-left text-lg-left">Contraseña (Dejar en blanco si no deseas cambiarla)</label>
-                    <div class="col-sm-12 col-lg-8">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="off">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                <!-- Contraseña -->
+                <div class="mb-3 row">
+                    <label for="password" class="col-lg-4 col-form-label">Nueva Contraseña</label>
+                    <div class="col-lg-8">
+                        <input id="password" type="password" class="form-control" name="password">
+                        <small class="text-muted">Deja este campo en blanco si no deseas cambiar la contraseña</small>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="password-confirm" class="col-sm-12 col-lg-4 control-label text-sm-left text-lg-left">Confirmar Contraseña</label>
-                    <div class="col-sm-12 col-lg-8">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="off">
+                <!-- Confirmar Contraseña -->
+                <div class="mb-3 row">
+                    <label for="password-confirm" class="col-lg-4 col-form-label">Confirmar Contraseña</label>
+                    <div class="col-lg-8">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" 
+                            oninput="this.setCustomValidity(this.value !== document.getElementById('password').value ? 'Las contraseñas no coinciden' : '')">
+                        <div class="invalid-feedback">
+                            Las contraseñas no coinciden.
+                        </div>
                     </div>
                 </div>
+<br>
+                <!-- Asignaciones -->
+                <fieldset class="border p-2 col-sm-12 col-lg-12 custom-fieldset">
+                    <legend class="w-auto custom-legend">Asignaciones</legend>
+                    <br>
+                    <div class="row">
+                        <!-- Rol -->
+                        <div class="col-lg-6">
+                            <div class="row mb-3">
+                                <label for="role" class="col-lg-4 col-form-label text-end">Rol</label>
+                                <div class="col-lg-8">
+                                    <select id="role" class="form-control" name="role_id" required>
+                                        <option value="" disabled>Selecciona un rol</option>
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}" {{ $usuario->roles->pluck('id')->contains($role->id) ? 'selected' : '' }}>
+                                                {{ $role->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Departamento -->
+                        <div class="col-lg-6">
+                            <div class="row mb-3">
+                                <label for="departamento" class="col-lg-4 col-form-label text-end">Departamento</label>
+                                <div class="col-lg-8">
+                                    <select id="departamento" class="form-control" name="departamento" required>
+                                        <option value="" disabled>Asignar departamento</option>
+                                        @foreach ($departamentos as $departamento)
+                                            <option value="{{ $departamento->dep_id }}" {{ $usuario->departamento == $departamento->dep_id ? 'selected' : '' }}>
+                                                {{ $departamento->dep_nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
 
-            <fieldset class="border p-2 col-sm-12 col-lg-12 custom-fieldset">
-    <legend class="w-auto custom-legend">Asignación de Roles</legend>
-    <br>
-
-    <div class="form-group row justify-content-center">
-        <label class="col-sm-12 col-lg-2 control-label text-sm-left text-lg-right requerido">Rol</label>
-        <div class="col-sm-12 col-lg-4">
-            <select name="role_id" class="form-control select2" required>
-    @if($usuario->roles->isEmpty())
-        <option value="" disabled selected class="placeholder-option">
-            - No Asignado -
-        </option>
-        @foreach($roles as $role)
-            <option value="{{ $role->id }}" {{ (old('role_id') == $role->id) ? 'selected' : '' }}>
-                {{ $role->name }}
-            </option>
-        @endforeach
-    @else
-        @foreach($roles as $role)
-            <option value="{{ $role->id }}" {{ ($usuario->roles->first()->id == $role->id) ? 'selected' : '' }}>
-                {{ $role->name }}
-            </option>
-        @endforeach
-    @endif
-</select>
-            </select>
-        </div>
-    </div>
-</fieldset>
-
-
             <div class="card-footer">
-                <div class="row">
-                    <div class="col-lg-4"></div>
+                <div class="row d-flex justify-content-center">
                     <div class="col-lg-4 text-center">
-                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        <button type="submit" class="btn btn-success">Actualizar</button>
                     </div>
                 </div>
             </div>
@@ -116,4 +121,3 @@
     </div>
 </div>
 @endsection
-

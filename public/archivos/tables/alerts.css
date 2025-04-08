@@ -5,14 +5,14 @@
         opacity: 0; /* Transparente al inicio */
     }
     to {
-        top: 70px; /* Posición final del mensaje */
+        top: 66px; /* Posición final del mensaje */
         opacity: 1; /* Opacidad completa */
     }
 }
 
 .mensaje-alert.success {
     position: fixed; /* Fija el mensaje en una posición específica de la pantalla */
-    top: 70px; /* Posición final del mensaje */
+    top: 66px; /* Posición final del mensaje */
     right: 20px; /* Separa el mensaje de la parte derecha */
     background: linear-gradient(90deg, #155724, #001f07); /* Gradiente de verde claro a oscuro */
     color: #fff; /* Texto blanco */
@@ -37,7 +37,7 @@
 
 .mensaje-alert.danger {
     position: fixed; /* Fija el mensaje en una posición específica de la pantalla */
-    top: 70px; /* Posición final del mensaje */
+    top: 60px; /* Posición final del mensaje */
     right: 20px; /* Separa el mensaje de la parte derecha */
     background: linear-gradient(90deg, #4d0a0a, #1d0000); /* Gradiente de verde claro a oscuro */
     color: #fff; /* Texto blanco */

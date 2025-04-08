@@ -19,6 +19,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'departamento', // La clave foránea de la departmantos
     ];
 
    
@@ -32,4 +33,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function Nombre_Departamento()
+
+    {
+    return $this->belongsTo(Departamentos::class, 'departamento', 'dep_id');
+    }
+
 }
+
+

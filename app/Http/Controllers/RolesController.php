@@ -7,10 +7,17 @@ use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
-    public function show()
+    public function show(Request $request)
 {
-    $roles = Role::orderBy('id')->paginate(10); // Ordena por ID y aplica paginación de 10 elementos por página
-    return view('admin.roles.rolesview', compact('roles'));
+
+    $search = $request->input('search');
+
+    $roles = Role::when($search, function ($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        })
+        ->orderBy('id')
+        ->paginate(10);
+    return view('admin.roles.rolesview', compact('roles', 'search'));
 }
 
 
@@ -33,13 +40,36 @@ class RolesController extends Controller
     try {
         $role = Role::create($request->all());
 
-        if ($request->has('permissions')) {
-            $role->permissions()->sync($request->permissions);
+        if ($request->has('permisos')) {
+            $role->permissions()->sync($request->permisos);
         }
 
         return redirect()->route('roles')->with('mensaje', 'El Rol se creó con éxito');
     } catch (\Exception $e) {
         return redirect()->route('roles.create')->with('mensaje de error', 'Hubo un problema al crear el rol');
+    }
+}
+
+
+public function destroy($id)
+{
+    try {
+        // Busca el producto por su ID
+        $role = Role::find($id);
+
+        // Verifica si el producto existe
+        if (!$role) {
+            return redirect()->route('roles')->withErrors(['error' => 'No pudimos encontrar el registro.']);
+        }
+
+        // Elimina el producto
+        $role->delete();
+
+        // Redirige con un mensaje de éxito
+        return redirect()->route('roles')->with(["mensaje" => "Registro eliminado con éxito"]);
+    } catch (\Illuminate\Database\QueryException $e) {
+        // Maneja posibles errores de base de datos
+        return redirect()->route('roles')->withErrors(['catch' => $e->getMessage()]);
     }
 }
 

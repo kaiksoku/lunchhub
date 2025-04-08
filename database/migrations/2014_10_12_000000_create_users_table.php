@@ -14,9 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->unsignedBigInteger('departamento'); // campo para la clave foránea
+            // Definir la clave foránea de manera explícita
+            $table->foreign('departamento', 'fk_departamentos_usuario')
+                  ->references('dep_id')->on('departamentos')
+                  ->onDelete('cascade'); // Elimina productos si se elimina la categoría
             $table->rememberToken();
             $table->timestamps();
         });

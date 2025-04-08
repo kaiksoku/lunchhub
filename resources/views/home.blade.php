@@ -7,16 +7,17 @@
 <head>
 <link rel="stylesheet" href="{{ asset('archivos/cards/cards.css') }}">
 <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
+<link rel="stylesheet" href="{{ asset('archivos/tables/alerts.css') }}">
 </head>
 
 @if(session('mensaje'))
-    <div class="alert alert-success mensaje-alert">
+    <div class="mensaje-alert success">
         {{ session('mensaje') }}
     </div>
 @endif
 
 @if($errors->any())
-    <div class="alert alert-danger mensaje-alert">
+    <div class="mensaje-alert danger">
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>

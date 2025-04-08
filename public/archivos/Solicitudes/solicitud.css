@@ -1,0 +1,65 @@
+.card-body {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form-container {
+    width: 60%;
+  }
+
+  .order-summary {
+    width: 35%;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .order-summary h5 {
+    color: black;
+    margin-bottom: 15px;
+  }
+
+  .order-summary .summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .order-summary .summary-total {
+    font-weight: bold;
+    color: #1d6298;
+  }
+
+  .selected-employees {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .selected-employees span {
+    display: inline-block;
+    background-color: #e9ecef;
+    padding: 5px 10px;
+    margin: 3px;
+    border-radius: 3px;
+  }
+  .custom-border {
+    width: 300px; /* Ajusta el tamaño según sea necesario */
+    height: 200px;
+    padding: 20px;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .custom-border::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="none" stroke="%236BA342" stroke-width="4" d="M10 10 Q25 5 50 10 Q75 15 90 10 Q95 35 80 50 Q65 65 50 80 Q35 65 20 50 Q5 35 10 10 Z"/></svg>') no-repeat center center;
+    background-size: cover;
+    pointer-events: none;
+  }

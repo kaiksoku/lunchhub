@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\RestaurantesController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\DepartamentosController;
+use App\Http\Controllers\EmpleadosController;
 
 // Principal---------------------------------------------------------------------------------------------------------------------------------
 Route::get('/', function () { return view('welcome'); })->name('welcome');  // Asigna el nombre 'welcome' a la ruta
@@ -19,14 +21,16 @@ Auth::routes(['register' => false]);
 
 
 //Administrador------------------------------------------------------------------------------------------------------------------------------
-Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->middleware('can:Ver Usuarios')->names('usuarios');
+Route::get('usuarios/create', [RegisterController::class, 'create'])->middleware('auth')->middleware('can:Crear Usuarios')->name('usuarios.create');
+Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update', 'show'])->middleware('can:Ver Usuarios')->names('usuarios');
 Route::get('usuarios/eliminar/{id}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
-Route::get('usuarios/register', [RegisterController::class, 'show'])->middleware('auth')->middleware('can:Crear Usuario')->name('register');
-Route::post('usuarios/create', [RegisterController::class, 'register'])->middleware('auth')->middleware('can:Crear Usuario')->name('register.create');
+Route::post('usuarios/guardar', [RegisterController::class, 'register'])->middleware('auth')->middleware('can:Crear Usuarios')->name('register.guardar');
 
-Route::get('roles', [RolesController::class, 'show'])->name('roles');
+Route::get('roles', [RolesController::class, 'show'])->middleware('auth')->middleware('can:Ver Roles')->name('roles');
 Route::get('roles/create', [RolesController::class, 'create'])->name('roles.create');
 Route::post('roles/guardar', [RolesController::class, 'store'])->name('roles.guardar');
+Route::get('roles/eliminar/{id}', [RolesController::class, 'destroy'])->name('roles.eliminar');
+
 //Administrador------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -51,13 +55,26 @@ Route::post('producto/guardar', [ProductoController::class, 'store'])->name('pro
 Route::get('producto/edit', [ProductoController::class, 'edit'])->name('producto.edit');
 Route::get('producto/eliminar/{id}', [ProductoController::class, 'destroy'])->name('producto.eliminar');
 
-// Módulo categorias
-Route::get('categoria', [CategoriaController::class, 'index'])->name('categoria');
+// Módulo Restaurantes
+Route::get('restaurantes', [RestaurantesController::class, 'show'])->name('restaurantes');
 Route::get('restaurantes/crear', [CategoriaController::class, 'create'])->name('categoria.create');
 Route::post('restaurantes/guardar', [CategoriaController::class, 'store'])->name('categoria.guardar');
 Route::get('restaurantes/editar', [CategoriaController::class, 'edit'])->name('categoria.edit');
 
-// Módulo Restaurantes
-Route::get('restaurantes', [RestaurantesController::class, 'show'])->name('restaurantes');
+// Módulo Departamentos
+Route::get('departamentos', [DepartamentosController::class, 'show'])->name('departamentos');
+
+
+// Módulo Empleados
+Route::get('empleados', [EmpleadosController::class, 'show'])->name('empleados');
+Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
+Route::post('empleados/store', [EmpleadosController::class, 'store'])->middleware('auth')->middleware('can:Crear Usuarios')->name('empleados.guardar');
+
+Route::get('categoria/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
+
+
+
+
+
 
 

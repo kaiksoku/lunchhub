@@ -7,6 +7,11 @@ use App\Models\Restaurantes;
 class RestaurantesController extends Controller
 {
     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
         public function show(Request $request)
 {
     $search = $request->input('search');

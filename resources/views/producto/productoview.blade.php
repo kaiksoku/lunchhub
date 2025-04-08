@@ -4,18 +4,18 @@
 <title>Productos</title>
 
 <head>
-    <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}?v={{ time() }}">
 </head>
 
 
 @if(session('mensaje'))
-    <div class="alert alert-success mensaje-alert">
+    <div class="mensaje-alert success">
         {{ session('mensaje') }}
     </div>
 @endif
 
 @if($errors->any())
-    <div class="alert alert-danger mensaje-alert">
+    <div class="mensaje-alert danger">
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -98,13 +98,13 @@
                                                 <td style="display: flex; align-items: center;">
                                                     <a href="{{ route('producto.eliminar', ['id' => $producto->prod_id]) }}" 
                                                     onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');" 
-                                                    data-toggle="tooltip" title="Eliminar este registro" style="margin: 0 10px;">
+                                                    data-toggle="tooltip" title="Eliminar este registro" style="margin: 0;">
                                                         <i class="text-danger far fa-trash-alt"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" title="Editar este registro" style="margin: 0 10px;">
+                                                    <a href="#" data-toggle="tooltip" title="Editar este registro" style="margin: 0;">
                                                         <i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" title="Ver detalles" style="margin: 0 10px;">
+                                                    <a href="#" data-toggle="tooltip" title="Ver detalles" style="margin: 0;">
                                                         <i class="fa-regular fa-eye" style="color: black"></i>
                                                     </a>
                                                 </td>

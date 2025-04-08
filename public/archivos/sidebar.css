@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: #1d6298; /* Fondo azul para la parte inferior de la sidebar */
+    background: linear-gradient(90deg, #134164, #1d6298); /* Gradiente de verde claro a oscuro */
     width: 250px;
     padding: 15px;
     color: white;
@@ -9,45 +9,6 @@
     padding-top: 56px; /* Espaciado para que no se solape con el navbar */
     height: 100vh;
   }
-
-  /* Sección superior de la Sidebar */
-  .sidebar-header {
-    background-color: #ffffff; /* Fondo blanco para la sección superior */
-    padding: 15px;
-    text-align: center;
-    color: #6BA342;
-    font-size: 1.5rem;
-    font-weight: bold;
-    border-top: 2px solid #6BA342;    /* Grosor superior */
-    border-right: 6px solid #6BA342;  /* Grosor derecho */
-    border-bottom: 4px solid #6BA342; /* Grosor inferior */
-    border-left: 8px solid #6BA342;   /* Grosor izquierdo */
-    border-radius: 20% 50% 20% 50%; /* Ajusta cada esquina para simular una forma de hoja */
-    width: 185px; /* Ajusta el tamaño del contenedor */
-    height: 75px;
-    margin: 0 auto;
-    box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.3); /* Sombra debajo y a la izquierda */
-}
-
-  
-
-  .sidebar-header h2 {
-    color: #c62e1f; /* Color del texto */
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0;
-    position: relative; /* Necesario para posicionar el ::after relativo al h2 */
-}
-
-.sidebar-header h2::after {
-    content: "";
-    display: block;
-    width: 80%; /* Ancho de la línea */
-    height: 6px; /* Grosor de la línea */
-    background-color: #1d6298; /* Color azul de la línea */
-    margin: 1px auto 0; /* Espaciado desde el texto */
-}
-
 
   /* Estilos para la lista de navegación */
   .sidebar ul {

@@ -32,21 +32,28 @@
 
     /* Ajuste de tamaño de la imagen */
     .full-width-section img {
-      max-width: 58%; /* Ajuste del ancho de la imagen al 80% del contenedor */
+      max-width: 60%; /* Ajuste del ancho de la imagen al 80% del contenedor */
       height: auto;
+    }.custom-navbar{
+      background: linear-gradient(90deg, #134164, #134164);
+    }.custom-collapse{
+      background: linear-gradient(90deg, #134164, #134164);
+    }.custom-footer{
+      background: linear-gradient(90deg, #134164, #1d6298);
     }
+    
   </style>
 </head>
 <body>
   <!-- Navbar -->
   <div class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
-      <div class="bg-dark p-4">
-        <h5 class="text-white h4">Bienvenido al Sistema de Tienda El Manantial.</h5>
-        <span class="text-muted">Debe iniciar sesión para comenzar a trabajar.</span>
+      <div class="custom-collapse p-4">
+        <h5 class="text-white h4">Bienvenido al Sistema para Pedidos de Dole Puerto Barrios</h5>
+        <span class="text-white">Debe iniciar sesión para comenzar.</span>
       </div>
     </div>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark custom-navbar">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -54,18 +61,20 @@
       <!-- Botones -->
       <div class="ml-auto d-flex">
         <a href="{{ route('login') }}" class="btn btn-outline-light mr-2">Iniciar sesión</a> <!-- Botón a la izquierda -->
-        <!--<a href="{{ route('register') }}" class="btn btn-outline-light">Registrarse</a> Botón a la derecha -->
+        <!--<a href="#" class="btn btn-outline-light">Registrarse</a> Botón a la derecha -->
       </div>
     </nav>
   </div>
 
   <!-- Main content -->
-  <div class="full-width-section">
+  <div class="full-width-section" style="background-color: transparent;">
     <!-- Texto "Tienda el Manantial" centrado -->
-    <h1 class="titulo">Tienda El Manantial</h1>
+    <h1 class="titulo">Bienvenido a Lunch Hub</h1>
     <!-- Imagen ajustada -->
-    <img src="{{ asset('imagenes/welcome.jpg') }}" class="img-fluid" alt="Bienvenido">
-  </div>
+     <br>
+    <img src="{{ asset('imagenes/welcome2.png') }}" class="img-fluid" alt="Bienvenido" style="background-color: transparent; box-shadow: none; border: none;">
+</div>
+
 
   <!-- Scripts de Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- jQuery completo -->
