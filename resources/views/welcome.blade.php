@@ -49,8 +49,10 @@
   <div class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
       <div class="custom-collapse p-4">
-        <h5 class="text-white h4">Bienvenido al Sistema para Pedidos de Dole Puerto Barrios</h5>
-        <span class="text-white">Debe iniciar sesión para comenzar.</span>
+        <h5 class="text-white h4">Bienvenido al Sistema de Vales de Comida, Dole Puerto Barrios</h5>
+        <span class="text-white">Debe iniciar sesión para comenzar.</span><br>
+<small class="text-white">Si no cuenta con un usuario comuníquese con su supervisor.</small>
+
       </div>
     </div>
     <nav class="navbar navbar-dark custom-navbar">

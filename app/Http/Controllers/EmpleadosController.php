@@ -57,7 +57,8 @@ class EmpleadosController extends Controller
 
         $user->roles()->attach($request->role_id); // Asigna el rol seleccionado
 
-        return redirect()->route('empleados')->with('mensaje', 'El Usuario se creó con éxito.');
+        return redirect()->route('solicitudes')->with('mensaje', 'El Vale se creó con éxito.');
+
 
     }
 }

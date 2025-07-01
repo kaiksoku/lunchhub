@@ -1,55 +1,65 @@
-const employeePrice = 25;
-  let selectedEmployeesCount = 0;
+function addEmployee() {
+    const select = document.getElementById('employee');
+    const selectedOption = select.options[select.selectedIndex];
 
-  function filterEmployees() {
-    const selectedDepartment = document.getElementById("department").value;
-    const employees = document.getElementById("employee").options;
+    if (!selectedOption || selectedOption.value === "") return;
 
-    for (let i = 0; i < employees.length; i++) {
-      const employeeDepartment = employees[i].getAttribute("data-department");
-      if (employeeDepartment === selectedDepartment || employees[i].value === "") {
-        employees[i].style.display = "block";
-      } else {
-        employees[i].style.display = "none";
-      }
-    }
+    const employeeId = selectedOption.value;
+    const employeeName = selectedOption.text;
 
-    document.getElementById("employee").selectedIndex = 0;
-  }
+    const existing = document.getElementById(`empleado-${employeeId}`);
+    if (existing) return;
 
-  function addEmployee() {
-    const employeeSelect = document.getElementById("employee");
-    const selectedEmployee = employeeSelect.options[employeeSelect.selectedIndex];
-    const displayArea = document.getElementById("selected-employees");
+    const container = document.getElementById('selected-employees');
 
-    if (selectedEmployee.value && !isEmployeeSelected(selectedEmployee.text)) {
-      const span = document.createElement("span");
-      span.textContent = selectedEmployee.text;
-      displayArea.appendChild(span);
+    const div = document.createElement('div');
+    div.className = 'badge-employee';
+    div.id = `empleado-${employeeId}`;
+    div.innerHTML = `
+        <span class="badge-name">${employeeName}</span>
+        <span class="badge-remove" onclick="removeEmployee('${employeeId}')">&times;</span>
+    `;
+    container.appendChild(div);
 
-      selectedEmployeesCount++;
-      updateOrderSummary();
-      employeeSelect.selectedIndex = 0;
-    }
-  }
+    const inputHidden = document.createElement('input');
+    inputHidden.type = 'hidden';
+    inputHidden.name = 'empleados[]';
+    inputHidden.value = employeeId;
+    inputHidden.id = `input-empleado-${employeeId}`;
+    document.getElementById('empleadosInputs')?.appendChild(inputHidden);
 
-  function isEmployeeSelected(employeeName) {
-    const selectedEmployees = document.getElementById("selected-employees").getElementsByTagName("span");
-    for (let i = 0; i < selectedEmployees.length; i++) {
-      if (selectedEmployees[i].textContent === employeeName) {
-        return true;
-      }
-    }
-    return false;
-  }
+    updateOrderSummary();
+}
 
-  function updateOrderSummary() {
-    const restaurant = document.getElementById("restaurant").value || "-";
-    const department = document.getElementById("department").value || "-";
-    const total = selectedEmployeesCount * employeePrice;
 
-    document.getElementById("summary-restaurant").textContent = restaurant;
-    document.getElementById("summary-department").textContent = department;
-    document.getElementById("summary-quantity").textContent = selectedEmployeesCount;
-    document.getElementById("summary-total").textContent = `Q ${total.toFixed(2)}`;
-  }
+function removeEmployee(id) {
+    const div = document.getElementById(`empleado-${id}`);
+    const input = document.getElementById(`input-empleado-${id}`);
+    if (div) div.remove();
+    if (input) input.remove();
+
+    updateOrderSummary();
+}
+
+function updateOrderSummary() {
+    // Restaurante seleccionado
+    const restaurantSelect = document.getElementById('restaurant');
+    const selectedRestaurant = restaurantSelect.options[restaurantSelect.selectedIndex]?.text || '-';
+    document.getElementById('summary-restaurant').textContent = selectedRestaurant;
+
+    // Departamento (ya viene mostrado como input deshabilitado)
+    const departmentText = document.querySelector('input[disabled]')?.value || '-';
+    document.getElementById('summary-department').textContent = departmentText;
+
+    // Platos pedidos = cantidad de empleados seleccionados
+    const selectedEmployees = document.querySelectorAll('#selected-employees .badge-employee');
+    const cantidad = selectedEmployees.length;
+    document.getElementById('summary-quantity').textContent = cantidad;
+
+    // Total (ejemplo: Q20 por plato)
+    const total = cantidad * 25;
+    document.getElementById('summary-total').textContent = `Q ${total.toFixed(2)}`;
+}
+
+
+const selectedEmployees = document.querySelectorAll('#selected-employees .badge-employee');

@@ -12,6 +12,7 @@ use App\Http\Controllers\RestaurantesController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\DepartamentosController;
 use App\Http\Controllers\EmpleadosController;
+use App\Http\Controllers\SolicitudesController;
 
 // Principal---------------------------------------------------------------------------------------------------------------------------------
 Route::get('/', function () { return view('welcome'); })->name('welcome');  // Asigna el nombre 'welcome' a la ruta
@@ -48,6 +49,13 @@ Route::get('ventas', [VentasController::class, 'show'])->name('ventas');
 Route::get('ventas/create', [VentasController::class, 'create'])->name('ventas.create');
 Route::get('ventas/edit', [VentasController::class, 'edit'])->name('ventas.edit');
 
+//Modulo Solicitudes
+Route::get('solicitudes', [SolicitudesController::class, 'show'])->name('solicitudes');
+Route::get('solicitudes/create', [SolicitudesController::class, 'create'])->name('solicitudes.create');
+Route::post('solicitudes/guardar', [SolicitudesController::class, 'store'])->name('solicitudes.guardar');
+Route::get('/solicitudes/detalle/{id}', [SolicitudesController::class, 'detalle'])->name('solicitudes.detalle');
+Route::get('/solicitudes/eliminar/{id}', [SolicitudesController::class, 'destroy'])->name('solicitudes.eliminar');
+
 // Módulo productos 
 Route::get('producto', [ProductoController::class, 'show'])->name('producto');
 Route::get('producto/create', [ProductoController::class, 'create'])->name('producto.create');
@@ -63,14 +71,16 @@ Route::get('restaurantes/editar', [CategoriaController::class, 'edit'])->name('c
 
 // Módulo Departamentos
 Route::get('departamentos', [DepartamentosController::class, 'show'])->name('departamentos');
-
+Route::get('departamentos/create', [DepartamentosController::class, 'create'])->name('departamentos.create');
+Route::post('departamentos/guardar', [DepartamentosController::class, 'store'])->name('departamentos.guardar');
+Route::get('departamentos/eliminar/{id}', [DepartamentosController::class, 'destroy'])->name('departamentos.eliminar');
 
 // Módulo Empleados
 Route::get('empleados', [EmpleadosController::class, 'show'])->name('empleados');
 Route::get('empleados/create', [EmpleadosController::class, 'create'])->name('empleados.create');
 Route::post('empleados/store', [EmpleadosController::class, 'store'])->middleware('auth')->middleware('can:Crear Usuarios')->name('empleados.guardar');
 
-Route::get('categoria/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
+
 
 
 

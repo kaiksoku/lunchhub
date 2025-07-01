@@ -3,10 +3,17 @@
 @section('content')
 
 <style>
-        .container {
-    width: 1200px;
-    margin-left: 100px;
+       .card-body {
+    display: flex;
+    justify-content: center; /* CENTRA el hijo horizontalmente */
+    overflow-x: auto;
+    min-height: 300px;
 }
+
+.form-container {
+    width: 80%;
+}
+
 </style>
 
 <title>Nuevo Rol</title>
