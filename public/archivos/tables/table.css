@@ -46,7 +46,7 @@
 
     .card-body {
         overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
-        min-height: 300px; /* Ajusta el valor según tus necesidades */
+        min-height: 300x; /* Ajusta el valor según tus necesidades */
     }
     
     .btn-1{

@@ -20,6 +20,7 @@ class User extends Authenticatable
         'email',
         'password',
         'departamento', // La clave foránea de la departmantos
+        'recinto',
     ];
 
    
@@ -38,6 +39,11 @@ class User extends Authenticatable
 
     {
     return $this->belongsTo(Departamentos::class, 'departamento', 'dep_id');
+    }
+    
+    public function Nombre_Recinto()
+    {
+    return $this->belongsTo(Recintos::class, 'recinto', 'reci_id');
     }
 
 }

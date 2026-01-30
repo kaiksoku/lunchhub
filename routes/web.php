@@ -13,6 +13,9 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\DepartamentosController;
 use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\SolicitudesController;
+use App\Http\Controllers\ChassisController;
+use App\Http\Controllers\SalidasController;
+use App\Http\Controllers\GensetController;
 
 // Principal---------------------------------------------------------------------------------------------------------------------------------
 Route::get('/', function () { return view('welcome'); })->name('welcome');  // Asigna el nombre 'welcome' a la ruta
@@ -43,6 +46,23 @@ Route::get('roles/eliminar/{id}', [RolesController::class, 'destroy'])->name('ro
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::get('home', [HomeController::class, 'index'])->name('home');
+
+// Módulo Chassis 
+Route::get('chassis', [ChassisController::class, 'show'])->name('chassis');
+Route::get('chassis/create', [ChassisController::class, 'create'])->name('chassis.create');
+Route::post('chassis/guardar', [ChassisController::class, 'store'])->name('chassis.guardar');
+Route::get('/chassis/edit/{id}', [ChassisController::class, 'edit'])->name('chassis.edit');
+Route::post('/chassis/update', [ChassisController::class, 'update'])->name('chassis.update');
+Route::get('/chassis/destroy/{id}', [ChassisController::class, 'destroy'])->name('chassis.destroy');
+
+// Módulo Genset
+Route::get('genset', [GensetController::class, 'show'])->name('genset');
+
+
+// Módulo Salidas 
+Route::get('salidas', [SalidasController::class, 'show'])->name('salidas');
+Route::get('ajax/validar-chassis', [SalidasController::class, 'validarChassis'])->name('validarchassis');
+Route::get('ajax/validar-genset', [SalidasController::class, 'validarGenset'])->name('validargenset');
 
 // Módulo ventas 
 Route::get('ventas', [VentasController::class, 'show'])->name('ventas');

@@ -1,160 +1,552 @@
 @extends('layouts.app')
 
 @section('content')
-<title>Solicitudes</title>
 
-<head>
-    <link rel="stylesheet" href="archivos/tables/table.css">
-    <link rel="stylesheet" href="{{ asset('archivos/tables/alerts.css') }}">
-</head>
+<style>
+    /* Fila de filtros tipo Excel */
+    tr.filtros th {
+        padding: 1px 1px;
+    }
 
-@if(session('mensaje'))
-    <div class="mensaje-alert success">
-        {{ session('mensaje') }}
-    </div>
-@endif
+    tr.filtros .filtro {
+        height: 18px;
+        padding: 0 4px;
+        font-size: 10.5px;
+        line-height: 1.1;
+        border-radius: 3px;
+    }
+</style>
 
-@if($errors->any())
-    <div class="mensaje-alert danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
-<div class="container-fluid">
-    <div class="card card-outline card-success">
-        <div class="card-header">
-            <div class="d-flex align-items-center w-100">
-                <h3 class="card-title mb-0">Registro de Solicitudes</h3>
-                <div class="ms-auto d-flex align-items-center">
-                    <a href="{{ route('solicitudes.create') }}" class="btn btn-success btn-sm ml-2">
-                        Registrar una Solicitud<i class="fa fa-fw fa-plus-circle pl-1"></i>
-                    </a>
+    <title>Solicitudes</title>
+
+    {{-- CSS --}}
+    <head>
+        <link rel="stylesheet" href="{{ asset('archivos/tables/table.css') }}">
+        <link rel="stylesheet" href="{{ asset('archivos/tables/alerts.css') }}">
+    </head>
+
+    {{-- MENSAJES --}}
+    @if(session('mensaje'))
+        <div class="mensaje-alert success">
+            {{ session('mensaje') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="mensaje-alert danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="container-fluid">
+        <div class="card card-outline card-success">
+
+            {{-- HEADER --}}
+            <div class="card-header">
+
+                <div class="d-flex align-items-center w-100">
+                    <h3 class="card-title mb-0">Historial de Movimientos</h3>
+
                 </div>
-            </div>
-            <br>
-            <div class="d-flex align-items-center justify-content-between">
-                <form class="d-flex align-items-center">
-                    <div class="mr-2 d-flex align-items-center">
-                        <span class="mr-1">Desde:</span>
-                        <input type="date" class="form-control" required placeholder="Desde">
-                    </div>
-                    <div class="mr-2 d-flex align-items-center">
-                        <span class="mr-1">Hasta:</span>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="reporte-container">
-                        <button type="button" class="btn btn-reporte">Reporte</button>
-                        <div class="reporte-opciones">
-                            <button type="submit" class="btn btn-1 ml-2"><i class="fa-regular fa-file-pdf"></i></button>
-                            <button type="submit" class="btn btn-2 ml-2"><i class="fa-regular fa-file-excel"></i></button>
+
+                <br>
+
+                <div class="d-flex align-items-center justify-content-between">
+
+                    {{-- FILTRO FECHAS --}}
+                    <form class="d-flex align-items-center">
+                        <div class="mr-2 d-flex align-items-center">
+                            <span class="mr-1">Desde:</span>
+                            <input type="date" class="form-control" required>
                         </div>
-                    </div>
-                </form>
 
-                <!-- Barra de búsqueda -->
-                <div class="ms-auto d-flex align-items-center">
-                    <div class="input-group-wrapper">
-                        <form class="input-group" id="search-form">
-                            <div class="form-outline">
-                                <input type="search" id="form1" class="form-control" placeholder="Buscar en Solicitudes" />
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-search"></i>
+                        <div class="mr-2 d-flex align-items-center">
+                            <span class="mr-1">Hasta:</span>
+                            <input type="date" class="form-control" required>
+                        </div>
+
+                        <div class="">
+                            <button type="button" class="btn btn-reporte">
+                                Actualizar
                             </button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <style>
-                    .tabla-ajustada {
-                        font-size: 12px;
-                        table-layout: auto;
-                        white-space: nowrap;
-                    }
+            {{-- BODY --}}
+            <div class="card-body">
 
-                    .tabla-ajustada th, .tabla-ajustada td {
-                        padding: 4px 8px;
-                    }
+                <div class="table-responsive">
 
-                    @media print {
-                        .tabla-ajustada thead {
-                            background-color: #f2f2f2 !important;
+                    {{-- ESTILOS DE TABLA --}}
+                    <style>
+                        .tabla-ajustada {
+                            font-size: 12px;
+                            table-layout: auto;
+                            white-space: nowrap;
                         }
-                        .tabla-ajustada th, .tabla-ajustada td {
-                            border: 1px solid #aaa !important;
-                            padding: 4px 8px !important;
-                        }
-                        body {
-                            -webkit-print-color-adjust: exact;
-                            print-color-adjust: exact;
-                        }
-                    }
-                </style>
 
-                <table class="table table-striped table-hover tabla-ajustada" cellspacing="0">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Código</th>
-                            <th>Solicitante</th>
-                            <th>Departamento</th>
-                            <th>Tiempo de Comida</th>
-                            <th>Fecha Solicitud</th>
-                            <th>Valor del Vale</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($solicitudes as $index => $solicitud)
-                            @php
-                                $platos = $detalles->where('det_solicitud', $solicitud->soli_id)->count();
-                            @endphp
+                        .tabla-ajustada th,
+                        .tabla-ajustada td {
+                            padding: 4px 8px;
+                        }
+
+                        @media print {
+                            .tabla-ajustada thead {
+                                background-color: #f2f2f2 !important;
+                            }
+
+                            .tabla-ajustada th,
+                            .tabla-ajustada td {
+                                border: 1px solid #aaa !important;
+                                padding: 4px 8px !important;
+                            }
+
+                            body {
+                                -webkit-print-color-adjust: exact;
+                                print-color-adjust: exact;
+                            }
+                        }
+                    </style>
+
+                    {{-- TABLA --}}
+                    <table class="table table-striped tabla-ajustada" cellspacing="0">
+                        <thead class="table-dark">
                             <tr>
-                                <td>{{ $solicitud->soli_boleta }}</td>
-                                <td>{{ $solicitud->usuario->name }}</td>
-                                <td>{{ $solicitud->usuario->Nombre_Departamento->dep_nombre ?? 'Sin departamento' }}</td>
-                                <td>{{ $solicitud->soli_tiempo }}</td>
-                                <td>{{ $solicitud->soli_generacion }}</td>
-                                <td>{{ $platos }} {{ $platos == 1 ? 'Plato' : 'Platos' }} - Q {{ $platos * 25 }}</td>
-                                <td style="display: flex; align-items: center;">
-                                    <a href="{{ route('solicitudes.eliminar', $solicitud->soli_id) }}" onclick="return confirm('¿Estás seguro de que deseas eliminar esta solicitud?');" title="Eliminar esta solicitud" style="margin: 0 10px;">
-                                        <i class="text-danger far fa-trash-alt"></i>
-                                    </a>
-                                    <a href="#" title="Editar esta solicitud" style="margin: 0 10px;">
-                                        <i class="fa-regular fa-pen-to-square"></i>
-                                    </a>
-                                    <a href="{{ route('solicitudes.detalle', $solicitud->soli_id) }}" title="Ver detalles" target="_blank" style="margin: 0 10px;">
-                                        <i class="fa-regular fa-eye" style="color: black"></i>
-                                    </a>
-                                </td>
+                                 <th>Boleta</th>
+                <th>Recinto</th>
+                <th>Semana</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Carga</th>
+                <th>Cabezal</th>
+                <th>Placa Cabezal</th>
+                <th>Categoría Cabezal</th>
+                <th>Piloto</th>
+                <th>Contenedor</th>
+                <th>Tipo Contenedor</th>
+                <th>Sello Plástico</th>
+                <th>Sello Botella</th>
+                <th>Setpoint</th>
+                <th>Setpoint 2</th>
+                <th>Damper</th>
+                <th>Naviera</th>
+                <th>Chassis</th>
+                <th>Placa Chassis</th>
+                <th>Placa Chassis 3</th>
+                <th>PV Chassis</th>
+                <th>Fecha PV Chassis</th>
+                <th>Hubodómetro</th>
+                <th>Llanta 1</th>
+                <th>Llanta 2</th>
+                <th>Llanta 3</th>
+                <th>Llanta 4</th>
+                <th>Llanta 5</th>
+                <th>Llanta 6</th>
+                <th>Llanta 7</th>
+                <th>Llanta 8</th>
+                <th>Genset</th>
+                <th>PV Genset</th>
+                <th>Fecha PV Genset</th>
+                <th>Horómetro Salida</th>
+                <th>Horómetro Ingreso</th>
+                <th>Hor. Rendimiento</th>
+                <th>Galones Salida</th>
+                <th>Galones Ingreso</th>
+                <th>Gal. Rendimiento</th>
+                <th>Faltante</th>
+                <th>Sello 1</th>
+                <th>Sello 2</th>
+                <th>Sello 3</th>
+                <th>Sello 4</th>
+                <th>Cliente</th>
+                <th>Destino / Procedencia</th>
+                <th>Categoría</th>
+                <th>Movimiento</th>
+                <th>Condicionista</th>
+                <th>Digitador</th>
+                <th>Observaciones</th>
+            </tr>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
 
-                <!-- Paginación simulada -->
-                <div class="d-flex justify-content-center mt-4">
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-                        </ul>
-                    </nav>
+                         <tbody>
+
+                         <tr class="filtros">
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+    <th><input type="text" class="form-control form-control-sm filtro"></th>
+<th><input type="text" class="form-control form-control-sm filtro"></th>
+<th><input type="text" class="form-control form-control-sm filtro"></th>
+</tr>
+                    {{-- FILA DE EJEMPLO --}}
+                    <tr>
+                        <td>54871</td>
+                        <td>Puerto Barrios</td>
+                        <td>50</td>
+                        <td>13-12-25</td>
+                        <td>21:59:36</td>
+                        <td>Banano</td>
+                        <td>402</td>
+                        <td>400DYZ</td>
+                        <td>Directos</td>
+                        <td>Uber Samayoa</td>
+                        <td>DFIU3334127</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                    </tr>
+
+                    <tr>
+                        <td>64871</td>
+                        <td>Puerto Barrios</td>
+                        <td>50</td>
+                        <td>13-12-25</td>
+                        <td>21:59:36</td>
+                        <td>Banano</td>
+                        <td>402</td>
+                        <td>400DYZ</td>
+                        <td>Directos</td>
+                        <td>Uber Samayoa</td>
+                        <td>DFIU3334127</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>---</td>
+                    </tr>
+                    <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                        <tr>
+                        <td>64871</td>
+                        </tr>
+                    <tr>
+                </tbody>
+                    </table>
+
+                    {{-- PAGINACIÓN --}}
+                    
+
                 </div>
             </div>
-        </div>
+<div class="d-flex justify-content-center mt-4">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Anterior</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Siguiente</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+            {{-- JS --}}
+            <script src="{{ asset('archivos/tables/table.js') }}"></script>
 
-        <script src="archivos/tables/table.js"></script>
+            <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const filtros = document.querySelectorAll('.filtro');
+    const filas = document.querySelectorAll('tbody tr:not(.filtros)');
+
+    filtros.forEach((input, index) => {
+        input.addEventListener('keyup', () => {
+            const valor = input.value.toLowerCase();
+
+            filas.forEach(fila => {
+                const celda = fila.children[index];
+                const texto = celda.textContent.toLowerCase();
+
+                if (texto.includes(valor)) {
+                    fila.style.display = '';
+                } else {
+                    fila.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+</script>
+
+        </div>
     </div>
-</div>
+
 @endsection

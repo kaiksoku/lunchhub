@@ -3,18 +3,65 @@
 @section('content')
 
 <style>
-       .card-body {
-    display: flex;
-    justify-content: center; /* CENTRA el hijo horizontalmente */
-    overflow-x: auto;
-    min-height: 300px;
-}
+    .card-body {
+        overflow-x: auto;
+    }
 
-.form-container {
-    width: 80%;
-}
+    .form-container {
+        width: 95%;
+        margin: auto;
+    }
 
+    /* TABLAS MÁS COMPACTAS */
+    table {
+        font-size: 11px;
+    }
+
+    table th,
+    table td {
+        padding: 3px 6px !important;
+        vertical-align: middle;
+    }
+
+    /* HEADER TABLA */
+    thead th {
+        padding: 4px 6px !important;
+        font-size: 11px;
+    }
+
+    /* CHECKS PEGADOS A LA DERECHA */
+    td.text-end {
+        width: 60px;
+        padding-right: 4px !important;
+    }
+
+    .switch {
+        margin: 0;
+        float: right;
+    }
+
+    /* INPUT ROL */
+    .form-control {
+        height: 30px;
+        font-size: 12px;
+    }
+
+    /* BOTÓN */
+    .btn {
+        padding: 4px 12px;
+        font-size: 12px;
+    }
+
+    fieldset {
+        padding: 8px;
+    }
+
+    legend {
+        font-size: 12px;
+        padding: 0 6px;
+    }
 </style>
+
 
 <title>Nuevo Rol</title>
 
@@ -42,11 +89,11 @@
 
 
 <div class="container">
-    <div class="card card-outline card-success">
+    <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">Registrar una nuevo Rol<small></small></h3>
             <div class="card-tools">
-                <a href="#" class="btn btn-outline-success">
+                <a href="#" class="btn btn-outline-primary">
                     Volver al Listado <i class="fas fa-arrow-circle-left pl-1"></i>
                 </a>
             </div>
@@ -171,12 +218,12 @@
 <table class="table table-striped table-hover" cellspacing="0">
             <thead class="table-dark">
                 <tr>
-                    <th colspan="2">Permisos para Autorizaciones</th>
+                    <th colspan="2">Permisos Chassis</th>
                 </tr>
             </thead>
             <tbody>
             @foreach ($permisos as $permiso)
-        @if (str_contains(strtolower($permiso->name), 'autorizaciones'))
+        @if (str_contains(strtolower($permiso->name), 'chassis'))
             <tr>
                 <td>
                     <span id="label_{{ $permiso->id }}">{{ $permiso->name }}</span>

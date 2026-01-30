@@ -42,7 +42,7 @@
 
 /* Cambia el color cuando está seleccionado */
 .switch input:checked + .slider {
-    background-color: #28a745;
+    background-color: #063bd7;
 }
 
 /* Mueve el círculo cuando está seleccionado */
@@ -52,7 +52,7 @@
 
 /* Cambia el color y aplica negrita al texto asociado cuando está activado */
 .text-green-bold {
-    color: #228b40 !important;
+    color: #063bd7 !important;
     font-weight: bold !important;
     transition: all 0.4s ease;
 }

@@ -18,21 +18,6 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'Ver Dashboard'])->syncRoles([$roleadmin]);
 
-        Permission::create(['name' => 'Ver Solicitudes'])->syncRoles([$roleadmin]);
-        Permission::create(['name' => 'Crear Solicitudes'])->assignRole([$roleadmin]);
-        Permission::create(['name' => 'Editar Solicitudes'])->assignRole([$roleadmin]);
-        Permission::create(['name' => 'Eliminar Solicitudes'])->assignRole([$roleadmin]);
-
-        Permission::create(['name' => 'Ver Restaurantes'])->syncRoles([$roleadmin]);
-        Permission::create(['name' => 'Crear Restaurantes'])->assignRole([$roleadmin]);
-        Permission::create(['name' => 'Editar Restaurantes'])->assignRole([$roleadmin]);
-        Permission::create(['name' => 'Eliminar Restaurantes'])->assignRole([$roleadmin]);
-
-        Permission::create(['name' => 'Ver Autorizaciones'])->syncRoles([$roleadmin]);
-        Permission::create(['name' => 'Crear Autorizaciones'])->assignRole([$roleadmin]);
-        Permission::create(['name' => 'Editar Autorizaciones'])->assignRole([$roleadmin]);
-        Permission::create(['name' => 'Eliminar Autorizaciones'])->assignRole([$roleadmin]);
-
         Permission::create(['name' => 'Ver Empleados'])->assignRole([$roleadmin]);
         Permission::create(['name' => 'Crear Empleados'])->assignRole([$roleadmin]);
         Permission::create(['name' => 'Editar Empleados'])->assignRole([$roleadmin]);
@@ -52,5 +37,36 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Crear Roles'])->assignRole([$roleadmin]);
         Permission::create(['name' => 'Editar Roles'])->assignRole([$roleadmin]);
         Permission::create(['name' => 'Eliminar Roles'])->assignRole([$roleadmin]);
+
+        Permission::create(['name' => 'Ver Chassis'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Crear Chassis'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Editar Chassis'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Eliminar Chassis'])->assignRole([$roleadmin]);
+
+        Permission::create(['name' => 'Ver Genset'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Crear Genset'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Editar Genset'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Eliminar Genset'])->assignRole([$roleadmin]);
+
+        Permission::create(['name' => 'Ver Entradas'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Crear Entradas'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Editar Entradas'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Eliminar Entradas'])->assignRole([$roleadmin]);
+
+        Permission::create(['name' => 'Ver Salidas'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Crear Salidas'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Editar Salidas'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Eliminar Salidas'])->assignRole([$roleadmin]);
+
+        Permission::create(['name' => 'Ver Reportes'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Crear Reportes'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Editar Reportes'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Eliminar Reportes'])->assignRole([$roleadmin]);
+
+        Permission::create(['name' => 'Ver Cobros'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Crear Cobros'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Editar Cobros'])->assignRole([$roleadmin]);
+        Permission::create(['name' => 'Eliminar Cobros'])->assignRole([$roleadmin]);
+
     }
 }
