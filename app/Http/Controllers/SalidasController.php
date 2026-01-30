@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Chassis;
+use App\Models\Genset;
 
 class SalidasController extends Controller
 {

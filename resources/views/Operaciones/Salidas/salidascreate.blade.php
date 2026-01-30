@@ -146,7 +146,7 @@ textarea.form-control {
                     </div>
                     <div class="col-md-2">
                         <label>Boleta / EIR</label>
-                        <input class="form-control">
+                        <input type="number" class="form-control" required>
                     </div>
                     <div class="col-md-2">
                         <label>Fecha</label>
@@ -154,15 +154,29 @@ textarea.form-control {
                     </div>
                     <div class="col-md-2">
                         <label>Hora</label>
-                        <input type="time" class="form-control" value="{{ now()->format('H:i') }}">
+                        <input type="time" id="hora" class="form-control" value="">
                     </div>
                     <div class="col-md-2">
                         <label>Cabezal</label>
-                        <input class="form-control" required>
+                        <input class="form-control"
+                                required
+                                pattern="(\d+|AGREGADO)"
+                                title="Ingrese solo números o la palabra AGREGADO"
+                                style="text-transform: uppercase;">
                     </div>
                     <div class="col-md-2">
                         <label>Placa Cabezal</label>
-                        <input class="form-control">
+                        <input 
+                            id="placa_cabezal"
+                            name="placa_cabezal"
+                            class="form-control"
+                            maxlength="8"
+                            pattern="[A-Z]{1}-[0-9]{3}[A-Z]{3}"
+                            placeholder="C-123ABC"
+                            style="text-transform: uppercase;"
+                            required
+                        >
+
                     </div>
                 </div>
             </div>
@@ -173,27 +187,44 @@ textarea.form-control {
                 <div class="col-md-3">
                     <div class="form-section">
                         <h6>Contenedor</h6>
-                        <label>Contenedor</label><input class="form-control">
-                        <label>Tipo Contenedor</label><input class="form-control">
-                        <label>Naviera</label><input class="form-control">
-                        <label>Setpoint</label><input class="form-control">
-                        <label>Damper</label><input class="form-control">
-                        <label>Sello Plástico</label><input class="form-control">
-                        <label>Sello Botella</label><input class="form-control">
+                        <label>Contenedor</label>
+                        <input id="contenedor" class="form-control"
+                            pattern="[A-Za-z]{4}[0-9]{7}"
+                            title="4 letras y 7 números">
+
+                        <label>Tipo Contenedor</label>
+                        <input id="tipo" class="form-control">
+
+                        <label>Naviera</label>
+                        <input id="naviera" class="form-control">
+
+                        <label>Setpoint</label>
+                        <input id="setpoint" class="form-control">
+
+                        <label>Damper</label>
+                        <input id="damper" class="form-control">
+
+                        <label>Sello Plástico</label>
+                        <input id="sello_plastico" class="form-control">
+
+                        <label>Sello Botella</label>
+                        <input id="sello_botella" class="form-control">
+
                     </div>
-<br>
+                        <br>
                     <div class="form-section">
                         <h6>Comercial</h6>
+                        <label>Contenido</label><input class="form-control" required>
                         <label>Cliente</label><input class="form-control">
                         <label>Destino / Procedencia</label><input class="form-control">
-                        <label>Conductor</label><input class="form-control">
+                        <label>Conductor</label><input class="form-control" required>
                     </div>
                 </div>
                 <div class="col-md-1">
                 </div>
 
                 {{-- ===== COLUMNA CENTRAL ===== --}}
-                <div class="col-md-3">
+                <div class="col-md-4">
 
                     <div class="form-section">
                         <h6>Chassis</h6>
@@ -201,7 +232,7 @@ textarea.form-control {
                             <input
                                 type="text"
                                 id="chass_numero"
-                                name="chass_numero"
+                                name="mov_chassis"
                                 class="form-control"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
@@ -212,18 +243,37 @@ textarea.form-control {
                         <label>Placa Chassis</label><input type="text" id="placa" name="chass_placa" class="form-control" readonly>
                         <label>PV Chassis</label><input class="form-control">
                         <label>Fecha PV</label><input type="date" class="form-control">
-                        <label>Hubodómetro</label><input class="form-control">
+                        <label>Hubodómetro</label><input class="form-control" type="number">
                     </div>
 <br>
                     <div class="form-section">
                         <h6>Llantas</h6>
                         <div class="row">
                             @for ($i = 1; $i <= 12; $i++)
-                                <div class="col-6">
-                                    <label>L{{ $i }}</label>
-                                    <input class="form-control">
-                                </div>
-                            @endfor
+                            <div class="col-4">
+                                <label>Llanta {{ $i }}</label>
+                                <input 
+                                    name="mov_llanta{{ $i }}" 
+                                    class="form-control" 
+                                    type="number"
+                                    min="0"
+                                    max="999999"
+                                    step="1"
+                                >
+                            </div>
+                            <div class="col-2">
+                                <label></label>
+                                <input 
+                                    name="mov_llanta{{ $i }}" 
+                                    class="form-control" 
+                                    type="number"
+                                    min="0"
+                                    max="999999"
+                                    step="1"
+                                    oninput="if(this.value.length>2) this.value=this.value.slice(0,2);"
+                                >
+                            </div>
+                        @endfor
                         </div>
                     </div>
 
@@ -256,10 +306,9 @@ textarea.form-control {
                     <div class="form-section">
                         <h6>Combustible</h6>
                         <label>Galones Salida</label><input class="form-control">
-                        <label>Galones Ingreso</label><input class="form-control">
                         <label>Faltante</label><input class="form-control">
                     </div>
-
+<br>
                     <div class="form-section">
                         <h6>Interchange</h6>
                         <label>Condicionista</label><input class="form-control">
@@ -281,12 +330,13 @@ textarea.form-control {
         {{-- ================= FOOTER ================= --}}
         <div class="card-footer text-center">
             <button
-    id="btn-guardar"
-    class="btn btn-success"
-    style="background-color:#1f7734ff; border-color:#1f7734ff;"
->
-    GUARDAR
-</button>
+                id="btn-guardar"
+                type="submit"
+                class="btn btn-success"
+                style="background-color:#1f7734ff; border-color:#1f7734ff;"
+                onclick="validarHora(event)">GUARDAR
+            </button>
+
 
 
             <button type="button" class="btn btn-danger ml-3">CANCELAR</button>
@@ -421,6 +471,100 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const contenedor = document.getElementById("contenedor");
+
+    const dependientes = [
+        "tipo",
+        "naviera",
+        "setpoint",
+        "damper",
+        "sello_plastico",
+        "sello_botella"
+    ].map(id => document.getElementById(id));
+
+    // Validación del formato contenedor
+    function contenedorValido(valor) {
+        const regex = /^[A-Za-z]{4}[0-9]{7}$/;
+        return regex.test(valor);
+    }
+
+    function actualizarEstado() {
+
+        const valor = contenedor.value.trim();
+        const esValido = contenedorValido(valor);
+
+        dependientes.forEach(campo => {
+
+            campo.disabled = !esValido;
+            campo.required = esValido;
+
+            if (!esValido) {
+                campo.value = "";
+            }
+        });
+    }
+
+    // Forzar mayúsculas automático
+    contenedor.addEventListener("input", function () {
+        this.value = this.value.toUpperCase();
+        actualizarEstado();
+    });
+
+    actualizarEstado();
+});
+
+document.getElementById("btn-guardar").addEventListener("click", function(event) {
+
+    const campoHora = document.getElementById("hora");
+
+    if (campoHora.value === "") {
+
+        event.preventDefault(); // detener guardado momentáneo
+
+        const confirmar = confirm(
+            "La hora está vacía.\nSe actualizará con la hora actual.\n\n¿Desea continuar?"
+        );
+
+        if (!confirmar) return;
+
+        const ahora = new Date();
+        const horas = String(ahora.getHours()).padStart(2, '0');
+        const minutos = String(ahora.getMinutes()).padStart(2, '0');
+
+        campoHora.value = `${horas}:${minutos}`;
+
+        // ahora sí enviar el formulario
+        this.closest("form").submit();
+    }
+
+});
+
+
+function validarHora(event) {
+
+    let campoHora = document.getElementById("hora");
+
+    if (campoHora.value === "") {
+
+        let ok = confirm("La hora está vacía. Se actualizará con la hora actual. ¿Desea continuar?");
+
+        if (!ok) {
+            event.preventDefault();
+            return;
+        }
+
+        let ahora = new Date();
+        let horas = String(ahora.getHours()).padStart(2,'0');
+        let minutos = String(ahora.getMinutes()).padStart(2,'0');
+
+        campoHora.value = horas + ":" + minutos;
+    }
+}
+
 </script>
 
 
