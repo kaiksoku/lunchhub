@@ -2,121 +2,14 @@
 
 @section('content')
 
-<style>
-/* =====================================================
-   FORMULARIO OPERATIVO – ESTILO SISTEMA PORTUARIO
-   ===================================================== */
+<head>
+    <link rel="stylesheet" href="{{ asset('archivos/despacho/formdespacho.css') }}">
 
-body {
-    background-color: #f4f6f9;
-}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+</head>
 
-.container-fluid {
-    max-width: 96%;
-}
-
-/* Card */
-.card {
-    border-radius: 4px;
-    box-shadow: 0 0 0 1px #ccc;
-}
-
-/* Header */
-.card-header {
-    padding: 6px;
-    background: #e9ecef;
-}
-
-.card-header h4 {
-    font-size: 14px;
-    font-weight: 700;
-    margin: 0;
-}
-
-/* Body */
-.card-body {
-    padding: 10px 40px;
-}
-
-/* Secciones */
-.form-section {
-    margin-bottom: 8px;
-}
-
-/* Títulos */
-.form-section h6 {
-    font-size: 11.5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-    padding-bottom: 2px;
-    border-bottom: 1px solid #bbb;
-    /*color: #1f4fd8;*/
-    color: #1f7734ff;
-}
-
-/* Labels */
-label {
-    font-size: 10px;
-    font-weight: 600;
-    margin-bottom: 1px;
-    color: #333;
-}
-
-/* Inputs ultra compactos */
-.form-control,
-.form-select {
-    height: 17px !important;
-    padding: 0 3px !important;
-    font-size: 10px !important;
-    line-height: 1.1 !important;
-    border-radius: 2px !important;
-}
-
-/* Textarea */
-textarea.form-control {
-    min-height: 45px !important;
-    padding: 3px !important;
-}
-
-/* Espaciado mínimo */
-.row > [class*="col-"] {
-    margin-bottom: 3px;
-}
-
-/* Footer */
-.card-footer {
-    padding: 8px;
-    background: #f8f9fa;
-}
-
-.card-footer .btn {
-    font-size: 12px;
-    padding: 4px 18px;
-    border-radius: 4px;
-}
-/* ===== FIX SELECT2 PARA FORMULARIO COMPACTO ===== */
-.select2-container .select2-selection--single {
-    height: 17px !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 17px !important;
-    font-size: 10px !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 10px !important;
-}
-/* ===== LIMITE DE OPCIONES VISIBLES EN SELECT2 ===== */
-.select2-results__options {
-    max-height: 119px; /* 7 opciones aprox */
-}
-</style>
-
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
 
 <div class="container-fluid">
 <div class="card card-outline card-success">
@@ -245,7 +138,7 @@ textarea.form-control {
                         <label>Fecha PV</label><input type="date" class="form-control">
                         <label>Hubodómetro</label><input class="form-control" type="number">
                     </div>
-<br>
+                    <br>
                     <div class="form-section">
                         <h6>Llantas</h6>
                         <div class="row">
@@ -308,7 +201,7 @@ textarea.form-control {
                         <label>Galones Salida</label><input class="form-control">
                         <label>Faltante</label><input class="form-control">
                     </div>
-<br>
+                    <br>
                     <div class="form-section">
                         <h6>Interchange</h6>
                         <label>Condicionista</label><input class="form-control">
@@ -344,232 +237,19 @@ textarea.form-control {
 
     </form>
 
-</div>
-</div>
+ <!--Se define la ruta aquí porque los archivos .js externos NO procesan Blade.Blade solo funciona en archivos .blade.php, 
+por lo que las rutasde Laravel deben pasarse desde el HTML al JavaScript para poder usarlasen peticiones fetch sin errores.-->
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const input = document.getElementById('chass_numero');
-    const feedback = document.getElementById('chassis-feedback');
-    const btnGuardar = document.getElementById('btn-guardar');
-    const inputPlaca = document.getElementById('placa');
-
-    // Solo números
-    input.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-        feedback.textContent = '';
-        inputPlaca.value = '';
-        btnGuardar.disabled = false;
-    });
-
-    function validarChassis() {
-        const valor = input.value.trim();
-        if (valor === '') return;
-
-        fetch(`{{ route('validarchassis') }}?chass_numero=${valor}`)
-            .then(res => res.json())
-            .then(data => {
-
-                switch (data.status) {
-
-                    case 'valido':
-                        feedback.textContent = '✔ Chassis válido';
-                        feedback.style.color = 'green';
-                        inputPlaca.value = data.placa ?? '';
-                        btnGuardar.disabled = false;
-                        break;
-
-                    case 'taller':
-                        feedback.textContent = '⚠ Chassis en taller';
-                        feedback.style.color = 'orange';
-                        inputPlaca.value = '';
-                        btnGuardar.disabled = true;
-                        break;
-
-                    case 'no_existe':
-                        feedback.textContent = '✖ Chassis no existe';
-                        feedback.style.color = 'red';
-                        inputPlaca.value = '';
-                        btnGuardar.disabled = true;
-                        break;
-                }
-            })
-            .catch(() => {
-                feedback.textContent = '';
-                btnGuardar.disabled = true;
-            });
-    }
-
-    input.addEventListener('blur', validarChassis);
-
-    input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            validarChassis();
-        }
-    });
-
-});
-
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    const genInput = document.getElementById('gen_numero');
-    const genFeedback = document.getElementById('genset-feedback');
-    const btnGuardar = document.getElementById('btn-guardar');
-
-    // Solo números
-    genInput.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-        genFeedback.textContent = '';
-        btnGuardar.disabled = false;
-    });
-
-    function validarGenset() {
-        const valor = genInput.value.trim();
-        if (valor === '') return;
-
-        fetch(`/ajax/validar-genset?gen_numero=${valor}`)
-            .then(res => res.json())
-            .then(data => {
-
-                switch (data.status) {
-
-                    case 'valido':
-                        genFeedback.textContent = '✔ Genset válido';
-                        genFeedback.style.color = 'green';
-                        btnGuardar.disabled = false;
-                        break;
-
-                    case 'taller':
-                        genFeedback.textContent = '⚠ Genset en taller';
-                        genFeedback.style.color = 'orange';
-                        btnGuardar.disabled = true;
-                        break;
-
-                    case 'no_existe':
-                        genFeedback.textContent = '✖ Genset no existe';
-                        genFeedback.style.color = 'red';
-                        btnGuardar.disabled = true;
-                        break;
-                }
-            })
-            .catch(() => {
-                genFeedback.textContent = '';
-                btnGuardar.disabled = true;
-            });
-    }
-
-    genInput.addEventListener('blur', validarGenset);
-
-    genInput.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            validarGenset();
-        }
-    });
-
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const contenedor = document.getElementById("contenedor");
-
-    const dependientes = [
-        "tipo",
-        "naviera",
-        "setpoint",
-        "damper",
-        "sello_plastico",
-        "sello_botella"
-    ].map(id => document.getElementById(id));
-
-    // Validación del formato contenedor
-    function contenedorValido(valor) {
-        const regex = /^[A-Za-z]{4}[0-9]{7}$/;
-        return regex.test(valor);
-    }
-
-    function actualizarEstado() {
-
-        const valor = contenedor.value.trim();
-        const esValido = contenedorValido(valor);
-
-        dependientes.forEach(campo => {
-
-            campo.disabled = !esValido;
-            campo.required = esValido;
-
-            if (!esValido) {
-                campo.value = "";
-            }
-        });
-    }
-
-    // Forzar mayúsculas automático
-    contenedor.addEventListener("input", function () {
-        this.value = this.value.toUpperCase();
-        actualizarEstado();
-    });
-
-    actualizarEstado();
-});
-
-document.getElementById("btn-guardar").addEventListener("click", function(event) {
-
-    const campoHora = document.getElementById("hora");
-
-    if (campoHora.value === "") {
-
-        event.preventDefault(); // detener guardado momentáneo
-
-        const confirmar = confirm(
-            "La hora está vacía.\nSe actualizará con la hora actual.\n\n¿Desea continuar?"
-        );
-
-        if (!confirmar) return;
-
-        const ahora = new Date();
-        const horas = String(ahora.getHours()).padStart(2, '0');
-        const minutos = String(ahora.getMinutes()).padStart(2, '0');
-
-        campoHora.value = `${horas}:${minutos}`;
-
-        // ahora sí enviar el formulario
-        this.closest("form").submit();
-    }
-
-});
-
-
-function validarHora(event) {
-
-    let campoHora = document.getElementById("hora");
-
-    if (campoHora.value === "") {
-
-        let ok = confirm("La hora está vacía. Se actualizará con la hora actual. ¿Desea continuar?");
-
-        if (!ok) {
-            event.preventDefault();
-            return;
-        }
-
-        let ahora = new Date();
-        let horas = String(ahora.getHours()).padStart(2,'0');
-        let minutos = String(ahora.getMinutes()).padStart(2,'0');
-
-        campoHora.value = horas + ":" + minutos;
-    }
-}
-
+    window.routes = {
+        validarChassis: "{{ route('validarchassis') }}"
+    };
 </script>
 
+<script src="{{ asset('archivos/despacho/formdespacho.js') }}" defer></script>
 
-
-
+</div>
+</div>
 
 
 @endsection
